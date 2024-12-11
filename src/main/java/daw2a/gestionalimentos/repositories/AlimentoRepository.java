@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+
 @Repository
 public interface AlimentoRepository  extends JpaRepository<Alimento,Long> {
 
@@ -20,5 +22,8 @@ public interface AlimentoRepository  extends JpaRepository<Alimento,Long> {
 
     // Consulta para buscar alimentos por fecha de caducidad
     Page<Alimento> findAllByOrderByFechaCaducidad(Pageable pageable);
+
+    // Consulta para buscar alimentos por fecha de caducidad
+    Page<Alimento> findAlimentoByFechaCaducidadBefore(LocalDate fecha, Pageable pageable);
 
 }
