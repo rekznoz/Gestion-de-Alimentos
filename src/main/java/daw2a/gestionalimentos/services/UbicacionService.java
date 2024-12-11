@@ -31,10 +31,6 @@ public class UbicacionService {
         return ubicacionRepository.findById(id).map(this::convertToDTO);
     }
 
-    public Page<UbicacionDTO> findByNombreUbicacion(EnumUbicacion nombreUbicacion, Pageable pageable) {
-        return ubicacionRepository.findByNombreUbicacion(nombreUbicacion, pageable).map(this::convertToDTO);
-    }
-
     public UbicacionDTO createUbicacion(UbicacionCreateDTO ubicacionCreateDTO) {
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.setDescripcion(ubicacionCreateDTO.getDescripcion());
