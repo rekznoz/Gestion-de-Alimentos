@@ -66,7 +66,7 @@ public class ExistenciaService {
         }).orElse(false);
     }
 
-    public List<ExistenciaDTO> findByAlimentoId(Long alimentoId) {
+    public List<ExistenciaDTO> getExistenciasByAlimentoId(Long alimentoId) {
         return existenciaRepository.findByAlimentoId(alimentoId).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
@@ -74,15 +74,15 @@ public class ExistenciaService {
         return existenciaRepository.findAllByOrderByFechaEntradaAsc(pageable).map(this::convertToDTO);
     }
 
-    public List<ExistenciaDTO> findByUbicacionId(Long ubicacionId) {
+    public List<ExistenciaDTO> getExistenciasByUbicacionId(Long ubicacionId) {
         return existenciaRepository.findByUbicacionId(ubicacionId).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public List<ExistenciaDTO> findByAlimentoIdAndUbicacionId(Long alimentoId, Long ubicacionId) {
+    public List<ExistenciaDTO> getExistenciasByAlimentoIdAndUbicacionId(Long alimentoId, Long ubicacionId) {
         return existenciaRepository.findByAlimentoIdAndUbicacionId(alimentoId, ubicacionId).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public List<ExistenciaDTO> findByAlimentoIdAndUbicacionIdOrderByFechaEntradaAsc(Long alimentoId, Long ubicacionId) {
+    public List<ExistenciaDTO> getExistenciasByAlimentoIdAndUbicacionIdOrderByFechaEntradaAsc(Long alimentoId, Long ubicacionId) {
         return existenciaRepository.findByAlimentoIdAndUbicacionIdOrderByFechaEntradaAsc(alimentoId, ubicacionId).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
