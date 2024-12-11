@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -64,20 +65,24 @@ public class AlimentoService {
         }).orElse(false);
     }
 
-    public Page<AlimentoDTO> findByNombre(String nombre, Pageable pageable) {
+    public Page<AlimentoDTO> getAlimentosByNombre(String nombre, Pageable pageable) {
         return alimentoRepository.findByNombreContainingIgnoreCase(nombre, pageable).map(this::convertToDTO);
     }
 
-    public Page<AlimentoDTO> findAlimentoByPerecedero(boolean perecedero, Pageable pageable) {
+    public Page<AlimentoDTO> getAlimentosPerecederos(boolean perecedero, Pageable pageable) {
         return alimentoRepository.findAlimentoByPerecedero(perecedero, pageable).map(this::convertToDTO);
     }
 
-    public Page<AlimentoDTO> findAlimentoByAbierto(boolean abierto, Pageable pageable) {
+    public Page<AlimentoDTO> getAlimentosAbiertos(boolean abierto, Pageable pageable) {
         return alimentoRepository.findAlimentoByAbierto(abierto, pageable).map(this::convertToDTO);
     }
 
-    public Page<AlimentoDTO> findOrderByFechaCaducidad(Pageable pageable) {
+    public Page<AlimentoDTO> getAlimentosOrderByFechaCaducidad(Pageable pageable) {
         return alimentoRepository.findAllByOrderByFechaCaducidad(pageable).map(this::convertToDTO);
+    }
+
+    public Page<AlimentoDTO> getAlimentosCaducados(LocalDate fecha, Pageable pageable) {
+        return alimentoRepository.findAlimentoByFechaCaducidadBefore(fecha, pageable).map(this::convertToDTO);
     }
 
     private AlimentoDTO convertToDTO(Alimento alimento) {
