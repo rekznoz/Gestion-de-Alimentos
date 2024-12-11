@@ -4,7 +4,6 @@ import daw2a.gestionalimentos.dto.alimento.AlimentoDTO;
 import daw2a.gestionalimentos.dto.alimento.AlimentoCreateDTO;
 import daw2a.gestionalimentos.dto.alimento.AlimentoUpdateDTO;
 import daw2a.gestionalimentos.services.AlimentoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
