@@ -15,17 +15,19 @@ import java.time.LocalDate;
 public class Existencia {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincremented
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private int cantidad_alimento;
     private LocalDate fechaEntrada;
 
+    // Relacion con la tabla alimento (1 a muchos)
     @ManyToOne
     @JoinColumn(name = "alimento_id")
     @JsonBackReference
     private Alimento alimento;
 
+    // Relacion con la tabla ubicacion (1 a muchos)
     @ManyToOne
     @JoinColumn(name = "ubicacion_id")
     @JsonBackReference

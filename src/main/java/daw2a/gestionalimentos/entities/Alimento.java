@@ -24,10 +24,12 @@ public class Alimento {
     private boolean abierto;
     private boolean perecedero;
 
+    // Relacion con la tabla existencia (1 a muchos)
     @OneToMany(mappedBy = "alimento", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference
     private List<Existencia> existencia;
 
+    // Relacion con la tabla inventario (1 a muchos)
     @ManyToOne
     private Inventario inventario;
 

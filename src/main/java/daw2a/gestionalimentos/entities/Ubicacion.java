@@ -22,10 +22,12 @@ public class Ubicacion {
     private String descripcion;
     private int capacidad;
 
+    // Relacion con la tabla existencia (1 a muchos)
     @OneToMany(mappedBy = "ubicacion", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference
     private List<Existencia> existencias;
 
+    // Relacion con la tabla usuario (1 a muchos)
     @Enumerated(EnumType.STRING)
     @Column(name = "nombre_ubicacion")
     private EnumUbicacion nombreUbicacion;
