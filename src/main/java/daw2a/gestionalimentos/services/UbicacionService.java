@@ -6,7 +6,6 @@ import daw2a.gestionalimentos.dto.ubicacion.UbicacionUpdateDTO;
 import daw2a.gestionalimentos.entities.Ubicacion;
 import daw2a.gestionalimentos.enums.EnumUbicacion;
 import daw2a.gestionalimentos.repositories.UbicacionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
