@@ -23,57 +23,97 @@ public class ExistenciasController {
 
     @GetMapping
     public ResponseEntity<Page<ExistenciaDTO>> getAllExistencias(Pageable pageable) {
-        return ResponseEntity.ok(existenciaService.getAllExistencias(pageable));
+        try {
+            return ResponseEntity.ok(existenciaService.getAllExistencias(pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ExistenciaDTO> getExistenciasById(@PathVariable Long id) {
-        return existenciaService.getExistenciasById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return existenciaService.getExistenciasById(id)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
     public ResponseEntity<ExistenciaDTO> createExistencias(@RequestBody ExistenciaCreateDTO createDTO) {
-        return ResponseEntity.ok(existenciaService.createExistencias(createDTO));
+        try {
+            return ResponseEntity.ok(existenciaService.createExistencias(createDTO));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ExistenciaDTO> updateExistencias(@PathVariable Long id, @RequestBody ExistenciaUpdateDTO updateDTO) {
-        return existenciaService.updateExistencias(id, updateDTO)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return existenciaService.updateExistencias(id, updateDTO)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteExistencias(@PathVariable Long id) {
-        existenciaService.deleteExistencias(id);
-        return ResponseEntity.noContent().build();
+        try {
+            existenciaService.deleteExistencias(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/alimento/{alimento_id}")
     public ResponseEntity<List<ExistenciaDTO>> getExistenciasByAlimentoId(@PathVariable Long alimento_id) {
-        return ResponseEntity.ok(existenciaService.getExistenciasByAlimentoId(alimento_id));
+        try {
+            return ResponseEntity.ok(existenciaService.getExistenciasByAlimentoId(alimento_id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/ubicacion/{ubicacion_id}")
     public ResponseEntity<List<ExistenciaDTO>> getExistenciasByUbicacionId(@PathVariable Long ubicacion_id) {
-        return ResponseEntity.ok(existenciaService.getExistenciasByUbicacionId(ubicacion_id));
+        try {
+            return ResponseEntity.ok(existenciaService.getExistenciasByUbicacionId(ubicacion_id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/alimento/{alimento_id}/ubicacion/{ubicacion_id}")
     public ResponseEntity<List<ExistenciaDTO>> getExistenciasByAlimentoIdAndUbicacionId(@PathVariable Long alimento_id, @PathVariable Long ubicacion_id) {
-        return ResponseEntity.ok(existenciaService.getExistenciasByAlimentoIdAndUbicacionId(alimento_id, ubicacion_id));
+        try {
+            return ResponseEntity.ok(existenciaService.getExistenciasByAlimentoIdAndUbicacionId(alimento_id, ubicacion_id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/alimento/{alimento_id}/ubicacion/{ubicacion_id}/fecha")
     public ResponseEntity<List<ExistenciaDTO>> getExistenciasByAlimentoIdAndUbicacionIdOrderByFechaEntradaAsc(@PathVariable Long alimento_id, @PathVariable Long ubicacion_id) {
-        return ResponseEntity.ok(existenciaService.getExistenciasByAlimentoIdAndUbicacionIdOrderByFechaEntradaAsc(alimento_id, ubicacion_id));
+        try {
+            return ResponseEntity.ok(existenciaService.getExistenciasByAlimentoIdAndUbicacionIdOrderByFechaEntradaAsc(alimento_id, ubicacion_id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/fecha")
     public ResponseEntity<Page<ExistenciaDTO>> findAllByOrderByFechaEntradaAsc(Pageable pageable) {
-        return ResponseEntity.ok(existenciaService.findAllByOrderByFechaEntradaAsc(pageable));
+        try {
+            return ResponseEntity.ok(existenciaService.findAllByOrderByFechaEntradaAsc(pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }

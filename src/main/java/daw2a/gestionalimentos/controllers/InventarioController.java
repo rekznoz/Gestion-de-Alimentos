@@ -18,35 +18,54 @@ public class InventarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<InventarioDTO> getInventarioById(@PathVariable Long id) {
-        return inventarioService.getInventarioById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return inventarioService.getInventarioById(id)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<InventarioDTO> getInventarioByUsuarioId(@PathVariable Long usuarioId) {
-        return inventarioService.getInventarioByUsuarioId(usuarioId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return inventarioService.getInventarioByUsuarioId(usuarioId)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/usuario/{username}")
     public ResponseEntity<InventarioDTO> getInventarioByUsuarioUsername(@PathVariable String username) {
-        return inventarioService.getInventarioByUsuarioUsername(username)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return inventarioService.getInventarioByUsuarioUsername(username)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
     public ResponseEntity<InventarioDTO> createInventario(@RequestBody InventarioCreateDTO createDTO) {
-        return ResponseEntity.ok(inventarioService.createInventario(createDTO));
+        try {
+            return ResponseEntity.ok(inventarioService.createInventario(createDTO));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInventario(@PathVariable Long id) {
-        return inventarioService.deleteInventario(id)
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.notFound().build();
+        try {
+            inventarioService.deleteInventario(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

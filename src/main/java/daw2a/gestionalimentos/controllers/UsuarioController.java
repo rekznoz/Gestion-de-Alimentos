@@ -22,35 +22,59 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<Page<UsuarioDTO>> getAllUsuario(Pageable pageable) {
-        return ResponseEntity.ok(usuarioService.getAllUsuario(pageable));
+        try {
+            return ResponseEntity.ok(usuarioService.getAllUsuario(pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Page<UsuarioDTO>> getUsuarioById(@PathVariable Long id, Pageable pageable) {
-        return ResponseEntity.ok(usuarioService.getUsuarioById(id, pageable));
+        try {
+            return ResponseEntity.ok(usuarioService.getUsuarioById(id, pageable));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/buscar")
     public ResponseEntity<Page<UsuarioDTO>> getUsuarioByUsername(@RequestParam String username, Pageable pageable) {
-        return ResponseEntity.ok(usuarioService.getUsuarioByUsername(username, pageable));
+        try {
+            return ResponseEntity.ok(usuarioService.getUsuarioByUsername(username, pageable));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> createUsuario(@RequestBody UsuarioCreateDTO usuarioCreateDTO) {
-        return ResponseEntity.ok(usuarioService.createUsuario(usuarioCreateDTO));
+        try {
+            return ResponseEntity.ok(usuarioService.createUsuario(usuarioCreateDTO));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioDTO> updateUsuario(@PathVariable Long id, @RequestBody UsuarioUpdateDTO usuarioUpdateDTO) {
-        return ResponseEntity.of(usuarioService.updateUsuario(id, usuarioUpdateDTO));
+       try {
+           return usuarioService.updateUsuario(id, usuarioUpdateDTO)
+                   .map(ResponseEntity::ok)
+                   .orElse(ResponseEntity.notFound().build());
+       } catch (Exception e) {
+           return ResponseEntity.notFound().build();
+       }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
-        if (usuarioService.deleteUsuario(id)) {
+        try {
+            usuarioService.deleteUsuario(id);
             return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
 }

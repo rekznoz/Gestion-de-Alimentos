@@ -23,14 +23,22 @@ public class AlimentoController {
 
     @GetMapping
     public ResponseEntity<Page<AlimentoDTO>> getAllAlimentos(Pageable pageable) {
-        return ResponseEntity.ok(alimentoService.getAllAlimentos(pageable));
+        try {
+            return ResponseEntity.ok(alimentoService.getAllAlimentos(pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AlimentoDTO> getAlimentoById(@PathVariable Long id) {
-        return alimentoService.getAlimentoById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return alimentoService.getAlimentoById(id)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
@@ -47,36 +55,57 @@ public class AlimentoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAlimento(@PathVariable Long id) {
-        if (alimentoService.deleteAlimento(id)) {
+        try {
+            alimentoService.deleteAlimento(id);
             return ResponseEntity.noContent().build();
-        } else {
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping("/nombre")
     public ResponseEntity<Page<AlimentoDTO>> getAlimentosByNombre(@RequestParam String nombre, Pageable pageable) {
-        return ResponseEntity.ok(alimentoService.getAlimentosByNombre(nombre, pageable));
+        try {
+            return ResponseEntity.ok(alimentoService.getAlimentosByNombre(nombre, pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/caducados")
     public ResponseEntity<Page<AlimentoDTO>> getAlimentosCaducados(@RequestParam LocalDate fecha, Pageable pageable) {
-        return ResponseEntity.ok(alimentoService.getAlimentosCaducados(fecha, pageable));
+        try {
+            return ResponseEntity.ok(alimentoService.getAlimentosCaducados(fecha, pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/abierto")
     public ResponseEntity<Page<AlimentoDTO>> getAlimentosAbiertos(@RequestParam boolean abierto, Pageable pageable) {
-        return ResponseEntity.ok(alimentoService.getAlimentosAbiertos(abierto, pageable));
+        try {
+            return ResponseEntity.ok(alimentoService.getAlimentosAbiertos(abierto, pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/perecedero")
     public ResponseEntity<Page<AlimentoDTO>> findAlimentoByPerecedero(@RequestParam boolean perecedero, Pageable pageable) {
-        return ResponseEntity.ok(alimentoService.getAlimentosPerecederos(perecedero, pageable));
+        try {
+            return ResponseEntity.ok(alimentoService.getAlimentosPerecederos(perecedero, pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/caducidad")
     public ResponseEntity<Page<AlimentoDTO>> findAllByOrderByFechaCaducidad(Pageable pageable) {
-        return ResponseEntity.ok(alimentoService.getAlimentosOrderByFechaCaducidad(pageable));
+        try {
+            return ResponseEntity.ok(alimentoService.getAlimentosOrderByFechaCaducidad(pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }

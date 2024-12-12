@@ -22,38 +22,61 @@ public class UbicacionController {
 
     @GetMapping
     public ResponseEntity<Page<UbicacionDTO>> findAll(Pageable pageable) {
-        return ResponseEntity.ok(ubicacionService.findAll(pageable));
+        try {
+            return ResponseEntity.ok(ubicacionService.findAll(pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UbicacionDTO> findById(@PathVariable Long id) {
-        return ubicacionService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return ubicacionService.findById(id)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/nombre/{nombreUbicacion}")
     public ResponseEntity<Page<UbicacionDTO>> findByNombreUbicacion(@PathVariable EnumUbicacion nombreUbicacion, Pageable pageable) {
-        return ResponseEntity.ok(ubicacionService.getUbicacionesByNombreUbicacion(nombreUbicacion, pageable));
+        try {
+            return ResponseEntity.ok(ubicacionService.getUbicacionesByNombreUbicacion(nombreUbicacion, pageable));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
     public ResponseEntity<UbicacionDTO> createUbicacion(@RequestBody UbicacionCreateDTO ubicacionCreateDTO) {
-        return ResponseEntity.ok(ubicacionService.createUbicacion(ubicacionCreateDTO));
+        try {
+            return ResponseEntity.ok(ubicacionService.createUbicacion(ubicacionCreateDTO));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UbicacionDTO> updateUbicacion(@PathVariable Long id, @RequestBody UbicacionUpdateDTO ubicacionUpdateDTO) {
-        return ubicacionService.updateUbicacion(id, ubicacionUpdateDTO)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return ubicacionService.updateUbicacion(id, ubicacionUpdateDTO)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUbicacion(@PathVariable Long id) {
-        return ubicacionService.deleteUbicacion(id)
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.notFound().build();
+        try {
+            ubicacionService.deleteUbicacion(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
