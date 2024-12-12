@@ -8,10 +8,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-
-@NoArgsConstructor @AllArgsConstructor
-@Getter @Setter
-@ToString
+@Table(name = "alimentos")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Alimento {
 
@@ -19,9 +19,16 @@ public class Alimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nombre", nullable = false, length = 255)
     private String nombre;
+
+    @Column(name = "fecha_caducidad", nullable = false)
     private LocalDate fechaCaducidad;
+
+    @Column(name = "abierto", nullable = false)
     private boolean abierto;
+
+    @Column(name = "perecedero", nullable = false)
     private boolean perecedero;
 
     // Relacion con la tabla existencia (1 a muchos)
@@ -29,7 +36,7 @@ public class Alimento {
     @JsonManagedReference
     private List<Existencia> existencia;
 
-    // Relacion con la tabla inventario (1 a muchos)
+    // Relacion con la tabla inventario (muchos a uno)
     @ManyToOne
     private Inventario inventario;
 

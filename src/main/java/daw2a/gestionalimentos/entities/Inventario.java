@@ -6,9 +6,10 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor @AllArgsConstructor
-@Getter @Setter
-@ToString
+@Table(name = "inventario")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Inventario {
 

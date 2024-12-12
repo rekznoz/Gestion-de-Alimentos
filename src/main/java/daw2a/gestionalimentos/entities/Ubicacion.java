@@ -8,9 +8,10 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor @AllArgsConstructor
-@Getter @Setter
-@ToString
+@Table(name = "ubicaciones")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Ubicacion {
 
@@ -18,7 +19,10 @@ public class Ubicacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "descripcion", nullable = false, length = 255)
     private String descripcion;
+
+    @Column(name = "capacidad", nullable = false)
     private int capacidad;
 
     // Relacion con la tabla existencia (1 a muchos)

@@ -7,9 +7,10 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor @AllArgsConstructor
-@Getter @Setter
-@ToString
+@Table(name = "existencias")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Existencia {
 
@@ -17,7 +18,10 @@ public class Existencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "cantidad_alimento", nullable = false)
     private int cantidad_alimento;
+
+    @Column(name = "fecha_entrada", nullable = false)
     private LocalDate fechaEntrada;
 
     // Relacion con la tabla alimento (1 a muchos)
