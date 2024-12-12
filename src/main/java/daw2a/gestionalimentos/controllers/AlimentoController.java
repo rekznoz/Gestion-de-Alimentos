@@ -4,6 +4,7 @@ import daw2a.gestionalimentos.dto.alimento.AlimentoDTO;
 import daw2a.gestionalimentos.dto.alimento.AlimentoCreateDTO;
 import daw2a.gestionalimentos.dto.alimento.AlimentoUpdateDTO;
 import daw2a.gestionalimentos.services.AlimentoService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -42,12 +43,12 @@ public class AlimentoController {
     }
 
     @PostMapping
-    public ResponseEntity<AlimentoDTO> createAlimento(@RequestBody AlimentoCreateDTO createDTO) {
+    public ResponseEntity<AlimentoDTO> createAlimento(@RequestBody @Valid AlimentoCreateDTO createDTO) {
         return ResponseEntity.ok(alimentoService.createAlimento(createDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AlimentoDTO> updateAlimento(@PathVariable Long id, @RequestBody AlimentoUpdateDTO updateDTO) {
+    public ResponseEntity<AlimentoDTO> updateAlimento(@PathVariable Long id, @RequestBody @Valid AlimentoUpdateDTO updateDTO) {
         return alimentoService.updateAlimento(id, updateDTO)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

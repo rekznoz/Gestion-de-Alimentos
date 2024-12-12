@@ -4,6 +4,7 @@ import daw2a.gestionalimentos.dto.usuario.UsuarioDTO;
 import daw2a.gestionalimentos.dto.usuario.UsuarioCreateDTO;
 import daw2a.gestionalimentos.dto.usuario.UsuarioUpdateDTO;
 import daw2a.gestionalimentos.services.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,7 +49,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> createUsuario(@RequestBody UsuarioCreateDTO usuarioCreateDTO) {
+    public ResponseEntity<UsuarioDTO> createUsuario(@RequestBody @Valid UsuarioCreateDTO usuarioCreateDTO) {
         try {
             return ResponseEntity.ok(usuarioService.createUsuario(usuarioCreateDTO));
         } catch (Exception e) {
@@ -57,7 +58,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> updateUsuario(@PathVariable Long id, @RequestBody UsuarioUpdateDTO usuarioUpdateDTO) {
+    public ResponseEntity<UsuarioDTO> updateUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioUpdateDTO usuarioUpdateDTO) {
        try {
            return usuarioService.updateUsuario(id, usuarioUpdateDTO)
                    .map(ResponseEntity::ok)

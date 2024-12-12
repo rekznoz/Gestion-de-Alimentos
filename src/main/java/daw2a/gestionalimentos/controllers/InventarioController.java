@@ -3,6 +3,7 @@ package daw2a.gestionalimentos.controllers;
 import daw2a.gestionalimentos.dto.inventario.InventarioDTO;
 import daw2a.gestionalimentos.dto.inventario.InventarioCreateDTO;
 import daw2a.gestionalimentos.services.InventarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +51,7 @@ public class InventarioController {
     }
 
     @PostMapping
-    public ResponseEntity<InventarioDTO> createInventario(@RequestBody InventarioCreateDTO createDTO) {
+    public ResponseEntity<InventarioDTO> createInventario(@RequestBody @Valid InventarioCreateDTO createDTO) {
         try {
             return ResponseEntity.ok(inventarioService.createInventario(createDTO));
         } catch (Exception e) {

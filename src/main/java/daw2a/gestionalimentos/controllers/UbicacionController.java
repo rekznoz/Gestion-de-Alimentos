@@ -5,6 +5,7 @@ import daw2a.gestionalimentos.dto.ubicacion.UbicacionCreateDTO;
 import daw2a.gestionalimentos.dto.ubicacion.UbicacionUpdateDTO;
 import daw2a.gestionalimentos.enums.EnumUbicacion;
 import daw2a.gestionalimentos.services.UbicacionService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class UbicacionController {
     }
 
     @PostMapping
-    public ResponseEntity<UbicacionDTO> createUbicacion(@RequestBody UbicacionCreateDTO ubicacionCreateDTO) {
+    public ResponseEntity<UbicacionDTO> createUbicacion(@RequestBody @Valid UbicacionCreateDTO ubicacionCreateDTO) {
         try {
             return ResponseEntity.ok(ubicacionService.createUbicacion(ubicacionCreateDTO));
         } catch (Exception e) {
@@ -59,7 +60,7 @@ public class UbicacionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UbicacionDTO> updateUbicacion(@PathVariable Long id, @RequestBody UbicacionUpdateDTO ubicacionUpdateDTO) {
+    public ResponseEntity<UbicacionDTO> updateUbicacion(@PathVariable Long id, @RequestBody @Valid UbicacionUpdateDTO ubicacionUpdateDTO) {
         try {
             return ubicacionService.updateUbicacion(id, ubicacionUpdateDTO)
                     .map(ResponseEntity::ok)

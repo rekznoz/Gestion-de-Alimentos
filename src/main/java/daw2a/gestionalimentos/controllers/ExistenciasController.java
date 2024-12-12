@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class ExistenciasController {
     }
 
     @PostMapping
-    public ResponseEntity<ExistenciaDTO> createExistencias(@RequestBody ExistenciaCreateDTO createDTO) {
+    public ResponseEntity<ExistenciaDTO> createExistencias(@RequestBody @Valid ExistenciaCreateDTO createDTO) {
         try {
             return ResponseEntity.ok(existenciaService.createExistencias(createDTO));
         } catch (Exception e) {
@@ -51,7 +52,7 @@ public class ExistenciasController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExistenciaDTO> updateExistencias(@PathVariable Long id, @RequestBody ExistenciaUpdateDTO updateDTO) {
+    public ResponseEntity<ExistenciaDTO> updateExistencias(@PathVariable Long id, @RequestBody @Valid ExistenciaUpdateDTO updateDTO) {
         try {
             return existenciaService.updateExistencias(id, updateDTO)
                     .map(ResponseEntity::ok)
