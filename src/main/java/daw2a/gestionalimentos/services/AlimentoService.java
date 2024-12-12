@@ -20,11 +20,11 @@ public class AlimentoService {
 
     private final AlimentoRepository alimentoRepository;
 
-    private final InventarioRepository inventarioUsuarioRepository;
+    private final InventarioRepository inventarioRepository;
 
     public AlimentoService(AlimentoRepository alimentoRepository, InventarioRepository inventarioUsuarioRepository) {
         this.alimentoRepository = alimentoRepository;
-        this.inventarioUsuarioRepository = inventarioUsuarioRepository;
+        this.inventarioRepository = inventarioUsuarioRepository;
     }
 
     public Page<AlimentoDTO> getAllAlimentos(Pageable pageable) {
@@ -47,7 +47,7 @@ public class AlimentoService {
         alimento.setFechaCaducidad(fechaCaducidad);
         alimento.setAbierto(abierto);
         alimento.setPerecedero(perecedero);
-        alimento.setInventario(inventarioUsuarioRepository.findById(createDTO.getInventarioId()).orElseThrow());
+        alimento.setInventario(inventarioRepository.findById(createDTO.getInventarioId()).orElseThrow());
         alimentoRepository.save(alimento);
         return convertToDTO(alimento);
     }
@@ -58,7 +58,7 @@ public class AlimentoService {
             alimento.setFechaCaducidad(updateDTO.getFechaCaducidad());
             alimento.setAbierto(updateDTO.isAbierto());
             alimento.setPerecedero(updateDTO.isPerecedero());
-            alimento.setInventario(inventarioUsuarioRepository.findById(updateDTO.getInventarioId()).orElseThrow());
+            alimento.setInventario(inventarioRepository.findById(updateDTO.getInventarioId()).orElseThrow());
             alimentoRepository.save(alimento);
             return convertToDTO(alimento);
         });
@@ -107,7 +107,7 @@ public class AlimentoService {
     // Mover Alimentos al congelador
     public boolean moverAlimentoToCongelador(Long id) {
         return alimentoRepository.findById(id).map(alimento -> {
-            alimento.setInventario(inventarioUsuarioRepository.findById(1L).orElseThrow());
+            alimento.setInventario(inventarioRepository.findById(1L).orElseThrow());
             alimentoRepository.save(alimento);
             return true;
         }).orElse(false);
@@ -122,14 +122,10 @@ public class AlimentoService {
         }).orElse(false);
     }
 
-    // Verificar Alimentos mas Usados
-    public boolean alimentosMasUsados(Long id) {
-        return alimentoRepository.findById(id).map(alimento -> {
-            alimento.setInventario(inventarioUsuarioRepository.findById(2L).orElseThrow());
-            alimentoRepository.save(alimento);
-            return true;
-        }).orElse(false);
+    // Alertar de productos proximos a caducar
+    public Page<AlimentoDTO> getAlimentosProximosCaducar(LocalDate fecha, Pageable pageable) {
+        return alimentoRepository.findAlimentoByFechaCaducidadBefore(fecha, pageable).map(this::convertToDTO);
     }
 
-    
+
 }
