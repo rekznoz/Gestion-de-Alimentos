@@ -7,6 +7,8 @@ import daw2a.gestionalimentos.entities.Inventario;
 import daw2a.gestionalimentos.entities.Usuario;
 import daw2a.gestionalimentos.repositories.InventarioRepository;
 import daw2a.gestionalimentos.repositories.UsuarioRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,10 @@ public class InventarioService {
     public InventarioService(InventarioRepository inventarioRepository, UsuarioRepository usuarioRepository) {
         this.inventarioRepository = inventarioRepository;
         this.usuarioRepository = usuarioRepository;
+    }
+
+    public Page<InventarioDTO> getAllInventarios(Pageable pageable) {
+        return inventarioRepository.findAll(pageable).map(this::convertToDTO);
     }
 
     public Optional<InventarioDTO> getInventarioById(Long id) {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -59,11 +60,11 @@ public class ExistenciaService {
         });
     }
 
-    public boolean deleteExistencias(Long id) {
-        return existenciaRepository.findById(id).map(existencia -> {
-            existenciaRepository.delete(existencia);
-            return true;
-        }).orElse(false);
+    public void deleteExistencias(Long id) {
+        if (!existenciaRepository.existsById(id)) {
+            throw new NoSuchElementException("Existencia no encontrada con id: " + id);
+        }
+        existenciaRepository.deleteById(id);
     }
 
     public List<ExistenciaDTO> getExistenciasByAlimentoId(Long alimentoId) {

@@ -4,6 +4,8 @@ import daw2a.gestionalimentos.dto.inventario.InventarioDTO;
 import daw2a.gestionalimentos.dto.inventario.InventarioCreateDTO;
 import daw2a.gestionalimentos.services.InventarioService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,15 @@ public class InventarioController {
 
     public InventarioController(InventarioService inventarioService) {
         this.inventarioService = inventarioService;
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<InventarioDTO>> getAllInventarios(Pageable pageable) {
+        try {
+            return ResponseEntity.ok(inventarioService.getAllInventarios(pageable));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/{id}")

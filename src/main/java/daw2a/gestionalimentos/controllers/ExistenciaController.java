@@ -14,11 +14,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/existencias")
-public class ExistenciasController {
+public class ExistenciaController {
 
     private final ExistenciaService existenciaService;
 
-    public ExistenciasController(ExistenciaService existenciaService) {
+    public ExistenciaController(ExistenciaService existenciaService) {
         this.existenciaService = existenciaService;
     }
 

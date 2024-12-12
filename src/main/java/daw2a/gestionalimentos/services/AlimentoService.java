@@ -64,11 +64,11 @@ public class AlimentoService {
         });
     }
 
-    public boolean deleteAlimento(Long id) {
-        return alimentoRepository.findById(id).map(alimento -> {
-            alimentoRepository.delete(alimento);
-            return true;
-        }).orElse(false);
+    public void deleteAlimento(Long id) {
+        if (!alimentoRepository.existsById(id)) {
+            throw new RuntimeException("Alimento no encontrado con id " + id);
+        }
+        alimentoRepository.deleteById(id);
     }
 
     public Page<AlimentoDTO> getAlimentosByNombre(String nombre, Pageable pageable) {
