@@ -7,10 +7,9 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Data
+@NoArgsConstructor @AllArgsConstructor
+@Getter @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class Existencia {
 

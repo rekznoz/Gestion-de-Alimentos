@@ -6,10 +6,9 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Data
+@NoArgsConstructor @AllArgsConstructor
+@Getter @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class Inventario {
 
@@ -22,7 +21,7 @@ public class Inventario {
     private Usuario usuario;
 
     // Relacion con la tabla alimento (1 a muchos)
-    @OneToMany(mappedBy = "inventarioUsuario")
+    @OneToMany(mappedBy = "inventario")
     private List<Alimento> alimentos;
 
 }

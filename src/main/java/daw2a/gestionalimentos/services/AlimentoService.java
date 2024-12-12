@@ -6,10 +6,10 @@ import daw2a.gestionalimentos.dto.alimento.AlimentoUpdateDTO;
 import daw2a.gestionalimentos.entities.Alimento;
 import daw2a.gestionalimentos.repositories.AlimentoRepository;
 import daw2a.gestionalimentos.repositories.InventarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -37,10 +37,16 @@ public class AlimentoService {
 
     public AlimentoDTO createAlimento(AlimentoCreateDTO createDTO) {
         Alimento alimento = new Alimento();
-        alimento.setNombre(createDTO.getNombre());
-        alimento.setFechaCaducidad(createDTO.getFechaCaducidad());
-        alimento.setAbierto(createDTO.isAbierto());
-        alimento.setPerecedero(createDTO.isPerecedero());
+
+        String nombre = createDTO.getNombre();
+        LocalDate fechaCaducidad = createDTO.getFechaCaducidad();
+        boolean abierto = createDTO.isAbierto();
+        boolean perecedero = createDTO.isPerecedero();
+
+        alimento.setNombre(nombre);
+        alimento.setFechaCaducidad(fechaCaducidad);
+        alimento.setAbierto(abierto);
+        alimento.setPerecedero(perecedero);
         alimento.setInventario(inventarioUsuarioRepository.findById(createDTO.getInventarioId()).orElseThrow());
         alimentoRepository.save(alimento);
         return convertToDTO(alimento);

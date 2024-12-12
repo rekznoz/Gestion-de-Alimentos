@@ -8,10 +8,9 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Data
+@NoArgsConstructor @AllArgsConstructor
+@Getter @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class Ubicacion {
 
