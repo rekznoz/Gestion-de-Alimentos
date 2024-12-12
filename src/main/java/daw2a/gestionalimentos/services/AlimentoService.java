@@ -101,34 +101,5 @@ public class AlimentoService {
         alimentoDTO.setInventarioId(alimento.getInventario().getId());
         return alimentoDTO;
     }
-
-    // Logica de negocio
-
-    // Mover Alimentos al congelador
-    public boolean moverAlimentoToCongelador(Long id) {
-        return alimentoRepository.findById(id).map(alimento -> {
-            alimento.setInventario(inventarioUsuarioRepository.findById(1L).orElseThrow());
-            alimentoRepository.save(alimento);
-            return true;
-        }).orElse(false);
-    }
-
-    // Rotacion de Productos
-    public boolean rotarAlimentos(Long id) {
-        return alimentoRepository.findById(id).map(alimento -> {
-            alimento.setFechaCaducidad(LocalDate.now().plusDays(7));
-            alimentoRepository.save(alimento);
-            return true;
-        }).orElse(false);
-    }
-
-    // Verificar Alimentos mas Usados
-    public boolean alimentosMasUsados(Long id) {
-        return alimentoRepository.findById(id).map(alimento -> {
-            alimento.setInventario(inventarioUsuarioRepository.findById(2L).orElseThrow());
-            alimentoRepository.save(alimento);
-            return true;
-        }).orElse(false);
-    }
-
+    
 }
