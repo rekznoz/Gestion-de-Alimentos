@@ -48,11 +48,11 @@ public class UbicacionService {
         });
     }
 
-    public boolean deleteUbicacion(Long id) {
-        return ubicacionRepository.findById(id).map(ubicacion -> {
-            ubicacionRepository.delete(ubicacion);
-            return true;
-        }).orElse(false);
+    public void deleteUbicacion(Long id) {
+        if (!ubicacionRepository.existsById(id)) {
+            throw new RuntimeException("Ubicacion no encontrada con id: " + id);
+        }
+        ubicacionRepository.deleteById(id);
     }
 
     public Page<UbicacionDTO> getUbicacionesByNombreUbicacion(EnumUbicacion nombreUbicacion, Pageable pageable) {

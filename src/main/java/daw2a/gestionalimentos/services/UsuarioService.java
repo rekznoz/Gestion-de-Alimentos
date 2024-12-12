@@ -26,8 +26,8 @@ public class UsuarioService {
         return usuarioRepository.findAll(pageable).map(this::convertToDTO);
     }
 
-    public Page<UsuarioDTO> getUsuarioById(Long id, Pageable pageable) {
-        return usuarioRepository.findById(id, pageable).map(this::convertToDTO);
+    public UsuarioDTO getUsuarioById(Long id) {
+        return usuarioRepository.findById(id).map(this::convertToDTO).orElse(null);
     }
 
     public Page<UsuarioDTO> getUsuarioByUsername(String username, Pageable pageable) {

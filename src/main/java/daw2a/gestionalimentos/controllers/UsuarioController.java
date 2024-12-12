@@ -31,9 +31,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Page<UsuarioDTO>> getUsuarioById(@PathVariable Long id, Pageable pageable) {
+    public ResponseEntity<UsuarioDTO> getUsuarioById(@PathVariable Long id) {
         try {
-            return ResponseEntity.ok(usuarioService.getUsuarioById(id, pageable));
+            return ResponseEntity.ok(usuarioService.getUsuarioById(id));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
