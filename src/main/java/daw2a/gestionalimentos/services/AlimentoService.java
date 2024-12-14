@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +34,26 @@ public class AlimentoService {
 
     public Optional<AlimentoDTO> getAlimentoById(Long id) {
         return alimentoRepository.findById(id).map(this::convertToDTO);
+    }
+
+    public Page<AlimentoDTO> getAlimentosByNombre(String nombre, Pageable pageable) {
+        return alimentoRepository.findByNombreContainingIgnoreCase(nombre, pageable).map(this::convertToDTO);
+    }
+
+    public Page<AlimentoDTO> getAlimentosPerecederos(boolean perecedero, Pageable pageable) {
+        return alimentoRepository.findAlimentoByPerecedero(perecedero, pageable).map(this::convertToDTO);
+    }
+
+    public Page<AlimentoDTO> getAlimentosAbiertos(boolean abierto, Pageable pageable) {
+        return alimentoRepository.findAlimentoByAbierto(abierto, pageable).map(this::convertToDTO);
+    }
+
+    public Page<AlimentoDTO> getAlimentosOrderByFechaCaducidad(Pageable pageable) {
+        return alimentoRepository.findAllByOrderByFechaCaducidad(pageable).map(this::convertToDTO);
+    }
+
+    public Page<AlimentoDTO> getAlimentosCaducados(LocalDate fecha, Pageable pageable) {
+        return alimentoRepository.findAlimentoByFechaCaducidadBefore(fecha, pageable).map(this::convertToDTO);
     }
 
     public AlimentoDTO createAlimento(AlimentoCreateDTO createDTO) {
@@ -71,26 +92,6 @@ public class AlimentoService {
         alimentoRepository.deleteById(id);
     }
 
-    public Page<AlimentoDTO> getAlimentosByNombre(String nombre, Pageable pageable) {
-        return alimentoRepository.findByNombreContainingIgnoreCase(nombre, pageable).map(this::convertToDTO);
-    }
-
-    public Page<AlimentoDTO> getAlimentosPerecederos(boolean perecedero, Pageable pageable) {
-        return alimentoRepository.findAlimentoByPerecedero(perecedero, pageable).map(this::convertToDTO);
-    }
-
-    public Page<AlimentoDTO> getAlimentosAbiertos(boolean abierto, Pageable pageable) {
-        return alimentoRepository.findAlimentoByAbierto(abierto, pageable).map(this::convertToDTO);
-    }
-
-    public Page<AlimentoDTO> getAlimentosOrderByFechaCaducidad(Pageable pageable) {
-        return alimentoRepository.findAllByOrderByFechaCaducidad(pageable).map(this::convertToDTO);
-    }
-
-    public Page<AlimentoDTO> getAlimentosCaducados(LocalDate fecha, Pageable pageable) {
-        return alimentoRepository.findAlimentoByFechaCaducidadBefore(fecha, pageable).map(this::convertToDTO);
-    }
-
     private AlimentoDTO convertToDTO(Alimento alimento) {
         AlimentoDTO alimentoDTO = new AlimentoDTO();
         alimentoDTO.setId(alimento.getId());
@@ -114,12 +115,15 @@ public class AlimentoService {
     }
 
     // Rotacion de Productos
-    public boolean rotarAlimentos(Long id) {
-        return alimentoRepository.findById(id).map(alimento -> {
-            alimento.setFechaCaducidad(LocalDate.now().plusDays(7));
+    public void rotarProductos() {
+        List<Alimento> alimentos = alimentoRepository.findAll();
+        alimentos.forEach(alimento -> {
+            alimento.setAbierto(false);
             alimentoRepository.save(alimento);
-            return true;
-        }).orElse(false);
+            if (alimento.isPerecedero() && alimento.getFechaCaducidad().isBefore(LocalDate.now())) {
+                alimentoRepository.delete(alimento);
+            }
+        });
     }
 
     // Alertar de productos proximos a caducar
@@ -127,5 +131,9 @@ public class AlimentoService {
         return alimentoRepository.findAlimentoByFechaCaducidadBefore(fecha, pageable).map(this::convertToDTO);
     }
 
+    // Alertar de productos caducados
+    public Page<AlimentoDTO> getAlimentosCaducados(Pageable pageable) {
+        return alimentoRepository.findAlimentoByFechaCaducidadBefore(LocalDate.now(), pageable).map(this::convertToDTO);
+    }
 
 }
