@@ -31,6 +31,10 @@ public class UbicacionService {
         return ubicacionRepository.findById(id).map(this::convertToDTO);
     }
 
+    public Page<UbicacionDTO> getUbicacionesByNombreUbicacion(EnumUbicacion nombreUbicacion, Pageable pageable) {
+        return ubicacionRepository.findByNombreUbicacion(nombreUbicacion, pageable).map(this::convertToDTO);
+    }
+
     public UbicacionDTO createUbicacion(UbicacionCreateDTO ubicacionCreateDTO) {
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.setDescripcion(ubicacionCreateDTO.getDescripcion());
@@ -55,8 +59,11 @@ public class UbicacionService {
         ubicacionRepository.deleteById(id);
     }
 
-    public Page<UbicacionDTO> getUbicacionesByNombreUbicacion(EnumUbicacion nombreUbicacion, Pageable pageable) {
-        return ubicacionRepository.findByNombreUbicacion(nombreUbicacion, pageable).map(this::convertToDTO);
+    // Verificar si la ubicacion aun tiene capacidad para almacenar alimentos
+    public boolean verificarCapacidadUbicacion(Long idUbicacion) {
+        Ubicacion ubicacion = ubicacionRepository.findById(idUbicacion)
+                .orElseThrow(() -> new RuntimeException("Ubicacion no encontrada con id: " + idUbicacion));
+        return ubicacion.getCapacidad() > 0;
     }
 
     private UbicacionDTO convertToDTO(Ubicacion ubicacion) {
