@@ -26,4 +26,13 @@ public interface AlimentoRepository  extends JpaRepository<Alimento,Long> {
     // Consulta para buscar alimentos por fecha de caducidad
     Page<Alimento> findAlimentoByFechaCaducidadBefore(LocalDate fecha, Pageable pageable);
 
+    // Consulta alimentos por numero de usos
+    Page<Alimento> findAlimentoByNumeroUsosGreaterThanEqual(int numeroUsos, Pageable pageable);
+
+    // Consulta alimentos por numero de usos
+    Page<Alimento> findAlimentoByNumeroUsosLessThanEqual(int numeroUsos, Pageable pageable);
+
+    // Consulta alimentos por numero de usos
+    Page<Alimento> findAlimentoByNumeroUsosBetween(int numeroUsos1, int numeroUsos2, Pageable pageable);
+
 }
