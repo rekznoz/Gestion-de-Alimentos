@@ -145,4 +145,19 @@ public class AlimentoService {
         }).orElse(false);
     }
 
+    // Obtener Alimentos mas usados
+    public Page<AlimentoDTO> getAlimentosMasUsados(int numeroUsos, Pageable pageable) {
+        return alimentoRepository.findAlimentoByNumeroUsosGreaterThanEqual(numeroUsos, pageable).map(this::convertToDTO);
+    }
+
+    // Obtener Alimentos menos usados
+    public Page<AlimentoDTO> getAlimentosMenosUsados(int numeroUsos, Pageable pageable) {
+        return alimentoRepository.findAlimentoByNumeroUsosLessThanEqual(numeroUsos, pageable).map(this::convertToDTO);
+    }
+
+    // Obtener Alimentos por rango de usos
+    public Page<AlimentoDTO> getAlimentosPorRangoUsos(int numeroUsos1, int numeroUsos2, Pageable pageable) {
+        return alimentoRepository.findAlimentoByNumeroUsosBetween(numeroUsos1, numeroUsos2, pageable).map(this::convertToDTO);
+    }
+
 }
