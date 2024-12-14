@@ -42,6 +42,7 @@ public class AlimentoControllerTest {
         alimento.setFechaCaducidad(LocalDate.now());
         alimento.setAbierto(false);
         alimento.setPerecedero(true);
+        alimento.setNumeroUsos(0);
     }
 
     @Test
@@ -53,6 +54,7 @@ public class AlimentoControllerTest {
         alimentoDTO.setFechaCaducidad(LocalDate.now());
         alimentoDTO.setAbierto(false);
         alimentoDTO.setPerecedero(true);
+        alimentoDTO.setNumeroUsos(0);
 
         Page<AlimentoDTO> page = new PageImpl<>(List.of(alimento));
         when(alimentoService.getAllAlimentos(pageable)).thenReturn(page);
@@ -85,6 +87,7 @@ public class AlimentoControllerTest {
         alimentoCreateDTO.setAbierto(false);
         alimentoCreateDTO.setPerecedero(true);
         alimentoCreateDTO.setInventarioId(1L);
+        alimentoCreateDTO.setNumeroUsos(0);
 
         when(alimentoService.createAlimento(alimentoCreateDTO)).thenReturn(alimento);
 
@@ -103,6 +106,7 @@ public class AlimentoControllerTest {
         alimentoCreateDTO.setAbierto(false);
         alimentoCreateDTO.setPerecedero(true);
         alimentoCreateDTO.setInventarioId(1L);
+        alimentoCreateDTO.setNumeroUsos(0);
 
         when(alimentoService.createAlimento(alimentoCreateDTO)).thenReturn(alimento);
 
@@ -112,6 +116,7 @@ public class AlimentoControllerTest {
         alimentoUpdateDTO.setAbierto(false);
         alimentoUpdateDTO.setPerecedero(true);
         alimentoUpdateDTO.setInventarioId(1L);
+        alimentoUpdateDTO.setNumeroUsos(0);
 
         when(alimentoService.updateAlimento(1L, alimentoUpdateDTO)).thenReturn(Optional.ofNullable(alimento));
 

@@ -12,4 +12,5 @@ public class AlimentoDTO {
     private boolean abierto;
     private boolean perecedero;
     private Long inventarioId;
+    private int numeroUsos;
 }

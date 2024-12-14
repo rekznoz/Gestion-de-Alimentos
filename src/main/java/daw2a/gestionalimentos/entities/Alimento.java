@@ -31,6 +31,9 @@ public class Alimento {
     @Column(name = "perecedero", nullable = false)
     private boolean perecedero;
 
+    @Column(name = "numero_usos", nullable = false)
+    private int numeroUsos;
+
     // Relacion con la tabla existencia (1 a muchos)
     @OneToMany(mappedBy = "alimento", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference

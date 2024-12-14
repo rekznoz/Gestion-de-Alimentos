@@ -136,4 +136,13 @@ public class AlimentoService {
         return alimentoRepository.findAlimentoByFechaCaducidadBefore(LocalDate.now(), pageable).map(this::convertToDTO);
     }
 
+    // Sumar un uso a un alimento
+    public boolean sumarUso(Long id) {
+        return alimentoRepository.findById(id).map(alimento -> {
+            alimento.setNumeroUsos(alimento.getNumeroUsos() + 1);
+            alimentoRepository.save(alimento);
+            return true;
+        }).orElse(false);
+    }
+
 }
