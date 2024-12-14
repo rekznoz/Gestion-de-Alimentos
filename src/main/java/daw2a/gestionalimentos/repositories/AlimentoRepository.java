@@ -35,4 +35,5 @@ public interface AlimentoRepository  extends JpaRepository<Alimento,Long> {
     // Consulta alimentos por numero de usos
     Page<Alimento> findAlimentoByNumeroUsosBetween(int numeroUsos1, int numeroUsos2, Pageable pageable);
 
+    Page<Alimento> findAlimentoByFechaCaducidad(LocalDate fecha, Pageable pageable);
 }

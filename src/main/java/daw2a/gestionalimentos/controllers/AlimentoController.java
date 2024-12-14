@@ -23,9 +23,16 @@ public class AlimentoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<AlimentoDTO>> getAllAlimentos(Pageable pageable) {
+    public ResponseEntity<Page<AlimentoDTO>> getAllAlimentos(
+            Pageable pageable,
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) LocalDate fecha,
+            @RequestParam(required = false) boolean abierto,
+            @RequestParam(required = false) boolean perecedero,
+            @RequestParam(required = false) LocalDate caducidad
+    ) {
         try {
-            return ResponseEntity.ok(alimentoService.getAllAlimentos(pageable));
+            return ResponseEntity.ok(alimentoService.filtrarAlimentos(nombre, fecha, abierto, perecedero, caducidad, pageable));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -61,51 +68,6 @@ public class AlimentoController {
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/nombre")
-    public ResponseEntity<Page<AlimentoDTO>> getAlimentosByNombre(@RequestParam String nombre, Pageable pageable) {
-        try {
-            return ResponseEntity.ok(alimentoService.getAlimentosByNombre(nombre, pageable));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @GetMapping("/caducados")
-    public ResponseEntity<Page<AlimentoDTO>> getAlimentosCaducados(@RequestParam LocalDate fecha, Pageable pageable) {
-        try {
-            return ResponseEntity.ok(alimentoService.getAlimentosCaducados(fecha, pageable));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @GetMapping("/abierto")
-    public ResponseEntity<Page<AlimentoDTO>> getAlimentosAbiertos(@RequestParam boolean abierto, Pageable pageable) {
-        try {
-            return ResponseEntity.ok(alimentoService.getAlimentosAbiertos(abierto, pageable));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @GetMapping("/perecedero")
-    public ResponseEntity<Page<AlimentoDTO>> findAlimentoByPerecedero(@RequestParam boolean perecedero, Pageable pageable) {
-        try {
-            return ResponseEntity.ok(alimentoService.getAlimentosPerecederos(perecedero, pageable));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @GetMapping("/caducidad")
-    public ResponseEntity<Page<AlimentoDTO>> findAllByOrderByFechaCaducidad(Pageable pageable) {
-        try {
-            return ResponseEntity.ok(alimentoService.getAlimentosOrderByFechaCaducidad(pageable));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
         }
     }
 

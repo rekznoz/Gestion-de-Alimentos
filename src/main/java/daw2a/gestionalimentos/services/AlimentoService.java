@@ -36,24 +36,23 @@ public class AlimentoService {
         return alimentoRepository.findById(id).map(this::convertToDTO);
     }
 
-    public Page<AlimentoDTO> getAlimentosByNombre(String nombre, Pageable pageable) {
-        return alimentoRepository.findByNombreContainingIgnoreCase(nombre, pageable).map(this::convertToDTO);
-    }
+    public Page<AlimentoDTO> filtrarAlimentos(String nombre, LocalDate fecha, boolean abierto, boolean perecedero, LocalDate caducidad, Pageable pageable) {
+        Page<Alimento> alimentos;
+        if (nombre != null) {
+            alimentos = alimentoRepository.findByNombreContainingIgnoreCase(nombre, pageable);
+        } else if (fecha != null) {
+            alimentos = alimentoRepository.findAlimentoByFechaCaducidad(fecha, pageable);
+        } else if (abierto) {
+            alimentos = alimentoRepository.findAlimentoByAbierto(true, pageable);
+        } else if (perecedero) {
+            alimentos = alimentoRepository.findAlimentoByPerecedero(true, pageable);
+        } else if (caducidad != null) {
+            alimentos = alimentoRepository.findAlimentoByFechaCaducidad(caducidad, pageable);
+        } else {
+            alimentos = alimentoRepository.findAll(pageable);
+        }
+        return alimentos.map(this::convertToDTO);
 
-    public Page<AlimentoDTO> getAlimentosPerecederos(boolean perecedero, Pageable pageable) {
-        return alimentoRepository.findAlimentoByPerecedero(perecedero, pageable).map(this::convertToDTO);
-    }
-
-    public Page<AlimentoDTO> getAlimentosAbiertos(boolean abierto, Pageable pageable) {
-        return alimentoRepository.findAlimentoByAbierto(abierto, pageable).map(this::convertToDTO);
-    }
-
-    public Page<AlimentoDTO> getAlimentosOrderByFechaCaducidad(Pageable pageable) {
-        return alimentoRepository.findAllByOrderByFechaCaducidad(pageable).map(this::convertToDTO);
-    }
-
-    public Page<AlimentoDTO> getAlimentosCaducados(LocalDate fecha, Pageable pageable) {
-        return alimentoRepository.findAlimentoByFechaCaducidadBefore(fecha, pageable).map(this::convertToDTO);
     }
 
     public AlimentoDTO createAlimento(AlimentoCreateDTO createDTO) {

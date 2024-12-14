@@ -59,7 +59,7 @@ public class AlimentoControllerTest {
         Page<AlimentoDTO> page = new PageImpl<>(List.of(alimento));
         when(alimentoService.getAllAlimentos(pageable)).thenReturn(page);
 
-        ResponseEntity<Page<AlimentoDTO>> response = alimentoController.getAllAlimentos(pageable);
+        ResponseEntity<Page<AlimentoDTO>> response = alimentoController.getAllAlimentos(pageable, null, null, false, true, null);
         Page<AlimentoDTO> result = response.getBody();
 
         assert result != null;
