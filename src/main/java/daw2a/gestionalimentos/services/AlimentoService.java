@@ -36,23 +36,25 @@ public class AlimentoService {
         return alimentoRepository.findById(id).map(this::convertToDTO);
     }
 
-    public Page<AlimentoDTO> filtrarAlimentos(String nombre, LocalDate fecha, boolean abierto, boolean perecedero, LocalDate caducidad, Pageable pageable) {
-        Page<Alimento> alimentos;
-        if (nombre != null) {
-            alimentos = alimentoRepository.findByNombreContainingIgnoreCase(nombre, pageable);
-        } else if (fecha != null) {
-            alimentos = alimentoRepository.findAlimentoByFechaCaducidad(fecha, pageable);
-        } else if (abierto) {
-            alimentos = alimentoRepository.findAlimentoByAbierto(true, pageable);
-        } else if (perecedero) {
-            alimentos = alimentoRepository.findAlimentoByPerecedero(true, pageable);
-        } else if (caducidad != null) {
-            alimentos = alimentoRepository.findAlimentoByFechaCaducidad(caducidad, pageable);
-        } else {
-            alimentos = alimentoRepository.findAll(pageable);
-        }
-        return alimentos.map(this::convertToDTO);
+    public Page<AlimentoDTO> filtrarAlimentos(
+            String nombre,
+            Boolean abierto,
+            Boolean perecedero,
+            LocalDate caducidad,
+            Pageable pageable
+    ) {
 
+        Page<Alimento> alimentos;
+
+        if (nombre != null && caducidad != null) {
+            alimentos = alimentoRepository.findByNombreContainingIgnoreCaseAndFechaCaducidadAndAbiertoAndPerecederoAndFechaCaducidad(nombre, caducidad, abierto, perecedero, caducidad, pageable);
+        } else if (nombre != null) {
+            alimentos = alimentoRepository.findByNombreContainingIgnoreCaseAndAbiertoAndPerecedero(nombre, abierto, perecedero, pageable);
+        } else {
+            alimentos = alimentoRepository.findAllByAbiertoAndPerecedero(abierto, perecedero, pageable);
+        }
+
+        return alimentos.map(this::convertToDTO);
     }
 
     public AlimentoDTO createAlimento(AlimentoCreateDTO createDTO) {

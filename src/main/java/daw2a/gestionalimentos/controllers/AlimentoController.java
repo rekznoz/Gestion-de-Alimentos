@@ -26,13 +26,16 @@ public class AlimentoController {
     public ResponseEntity<Page<AlimentoDTO>> getAllAlimentos(
             Pageable pageable,
             @RequestParam(required = false) String nombre,
-            @RequestParam(required = false) LocalDate fecha,
             @RequestParam(required = false) boolean abierto,
             @RequestParam(required = false) boolean perecedero,
             @RequestParam(required = false) LocalDate caducidad
     ) {
         try {
-            return ResponseEntity.ok(alimentoService.filtrarAlimentos(nombre, fecha, abierto, perecedero, caducidad, pageable));
+            if (nombre != null || abierto || perecedero || caducidad != null) {
+                return ResponseEntity.ok(alimentoService.filtrarAlimentos(nombre, abierto, perecedero, caducidad, pageable));
+            } else {
+                return ResponseEntity.ok(alimentoService.getAllAlimentos(pageable));
+            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
