@@ -24,6 +24,7 @@ public class InventarioController {
 
     /**
      * Obtiene todos los inventarios
+     *
      * @param pageable
      * @param usuarioId
      * @return
@@ -46,6 +47,7 @@ public class InventarioController {
 
     /**
      * Obtiene un inventario por su id
+     *
      * @param id
      * @return
      */
@@ -62,6 +64,7 @@ public class InventarioController {
 
     /**
      * Crea un inventario
+     *
      * @param createDTO
      * @return
      */
@@ -76,6 +79,7 @@ public class InventarioController {
 
     /**
      * Actualiza un inventario
+     *
      * @param id
      * @param updateDTO
      * @return
@@ -91,6 +95,7 @@ public class InventarioController {
 
     /**
      * Elimina un inventario
+     *
      * @param id
      * @return
      */
