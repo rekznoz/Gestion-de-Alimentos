@@ -17,6 +17,9 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Servicio de la entidad Existencia
+ */
 @Service
 @Transactional
 public class ExistenciaService {
@@ -33,14 +36,31 @@ public class ExistenciaService {
         this.ubicacionRepository = ubicacionRepository;
     }
 
+    /**
+     * Obtiene todas las existencias
+     * @param pageable
+     * @return
+     */
     public Page<ExistenciaDTO> getAllExistencias(Pageable pageable) {
         return existenciaRepository.findAll(pageable).map(this::convertToDTO);
     }
 
+    /**
+     * Obtiene una existencia por su id
+     * @param id
+     * @return
+     */
     public Optional<ExistenciaDTO> getExistenciasById(Long id) {
         return existenciaRepository.findById(id).map(this::convertToDTO);
     }
 
+    /**
+     * Filtra las existencias por alimento y ubicacion
+     * @param alimento
+     * @param ubicacion
+     * @param pageable
+     * @return
+     */
     public Page<ExistenciaDTO> filterExistencias(Long alimento, Long ubicacion, Pageable pageable) {
         Page<Existencia> existencias;
         if (alimento != null && ubicacion != null) {
@@ -56,10 +76,20 @@ public class ExistenciaService {
         return existencias.map(this::convertToDTO);
     }
 
+    /**
+     * Obtiene todas las existencias ordenadas por fecha de entrada
+     * @param pageable
+     * @return
+     */
     public Page<ExistenciaDTO> findAllByOrderByFechaEntradaAsc(Pageable pageable) {
         return existenciaRepository.findAllByOrderByFechaEntradaAsc(pageable).map(this::convertToDTO);
     }
 
+    /**
+     * Crea una existencia
+     * @param createDTO
+     * @return
+     */
     public ExistenciaDTO createExistencias(ExistenciaCreateDTO createDTO) {
         Existencia existencias = new Existencia();
         existencias.setCantidad_alimento(createDTO.getCantidadAlimento());
@@ -69,6 +99,12 @@ public class ExistenciaService {
         return convertToDTO(existenciaRepository.save(existencias));
     }
 
+    /**
+     * Actualiza una existencia
+     * @param id
+     * @param updateDTO
+     * @return
+     */
     public Optional<ExistenciaDTO> updateExistencias(Long id, ExistenciaUpdateDTO updateDTO) {
         return existenciaRepository.findById(id).map(existencia -> {
             existencia.setCantidad_alimento(updateDTO.getCantidadAlimento());
@@ -79,6 +115,10 @@ public class ExistenciaService {
         });
     }
 
+    /**
+     * Elimina una existencia
+     * @param id
+     */
     public void deleteExistencias(Long id) {
         if (!existenciaRepository.existsById(id)) {
             throw new NoSuchElementException("Existencia no encontrada con id: " + id);
@@ -86,6 +126,11 @@ public class ExistenciaService {
         existenciaRepository.deleteById(id);
     }
 
+    /**
+     * Convierte una entidad Existencia a su DTO
+     * @param existencias
+     * @return
+     */
     private ExistenciaDTO convertToDTO(Existencia existencias) {
         ExistenciaDTO existenciasDTO = new ExistenciaDTO();
         existenciasDTO.setId(existencias.getId());
