@@ -7,6 +7,9 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Entidad Ubicacion
+ */
 @Entity
 @Table(name = "ubicacion")
 @Data
