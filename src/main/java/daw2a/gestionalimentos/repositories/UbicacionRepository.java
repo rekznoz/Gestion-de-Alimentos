@@ -8,6 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repositorio de la entidad Ubicacion
+ */
 @Repository
 public interface UbicacionRepository extends JpaRepository<Ubicacion, Long> {
 
