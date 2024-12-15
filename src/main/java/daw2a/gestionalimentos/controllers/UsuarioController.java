@@ -22,9 +22,16 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<UsuarioDTO>> getAllUsuario(Pageable pageable) {
+    public ResponseEntity<Page<UsuarioDTO>> getAllUsuario(
+            @RequestParam(required = false) String username,
+            Pageable pageable
+    ) {
         try {
-            return ResponseEntity.ok(usuarioService.getAllUsuario(pageable));
+            if (username != null) {
+                return ResponseEntity.ok(usuarioService.getUsuarioByUsername(username, pageable));
+            } else {
+                return ResponseEntity.ok(usuarioService.getAllUsuario(pageable));
+            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -34,15 +41,6 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDTO> getUsuarioById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(usuarioService.getUsuarioById(id));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/buscar")
-    public ResponseEntity<Page<UsuarioDTO>> getUsuarioByUsername(@RequestParam String username, Pageable pageable) {
-        try {
-            return ResponseEntity.ok(usuarioService.getUsuarioByUsername(username, pageable));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

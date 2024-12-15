@@ -12,7 +12,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     // Devuelve un usuario por el nombre de usuario
     Page<Usuario> findByUsernameContainingIgnoreCase(String username, Pageable pageable);
 
-    // Devuelve un usuario por ID
-    Page<Usuario> findById(Long id, Pageable pageable);
-
 }

@@ -52,7 +52,7 @@ public class UsuarioControllerTest {
         Page<UsuarioDTO> page = new PageImpl<>(List.of(usuario));
         when(usuarioService.getAllUsuario(pageable)).thenReturn(page);
 
-        ResponseEntity<Page<UsuarioDTO>> response = usuarioController.getAllUsuario(pageable);
+        ResponseEntity<Page<UsuarioDTO>> response = usuarioController.getAllUsuario(null, pageable);
         Page<UsuarioDTO> result = response.getBody();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
