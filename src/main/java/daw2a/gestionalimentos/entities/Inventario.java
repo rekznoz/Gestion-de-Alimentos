@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Entidad Inventario
+ */
 @Entity
 @Table(name = "inventario")
 @Data
