@@ -8,7 +8,6 @@ import daw2a.gestionalimentos.repositories.UsuarioRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -16,7 +15,6 @@ import java.util.Optional;
  * Servicio de la entidad Usuario
  */
 @Service
-@Transactional
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
@@ -27,6 +25,7 @@ public class UsuarioService {
 
     /**
      * Obtiene todos los usuarios
+     *
      * @param pageable
      * @return
      */
@@ -36,6 +35,7 @@ public class UsuarioService {
 
     /**
      * Obtiene un usuario por su id
+     *
      * @param id
      * @return
      */
@@ -45,6 +45,7 @@ public class UsuarioService {
 
     /**
      * Filtra los usuarios por username
+     *
      * @param username
      * @param pageable
      * @return
@@ -55,6 +56,7 @@ public class UsuarioService {
 
     /**
      * Crea un usuario
+     *
      * @param usuarioCreateDTO
      * @return
      */
@@ -68,6 +70,7 @@ public class UsuarioService {
 
     /**
      * Actualiza un usuario
+     *
      * @param id
      * @param usuarioUpdateDTO
      * @return
@@ -86,6 +89,7 @@ public class UsuarioService {
 
     /**
      * Elimina un usuario
+     *
      * @param id
      * @return
      */
@@ -98,6 +102,7 @@ public class UsuarioService {
 
     /**
      * Convierte un usuario en un DTO
+     *
      * @param usuario
      * @return
      */
@@ -107,4 +112,6 @@ public class UsuarioService {
         dto.setUsername(usuario.getUsername());
         return dto;
     }
+
+
 }
