@@ -27,6 +27,7 @@ public class AlimentoController {
 
     /**
      * Obtiene todos los alimentos
+     *
      * @param pageable
      * @param nombre
      * @param abierto
@@ -55,6 +56,7 @@ public class AlimentoController {
 
     /**
      * Obtiene un alimento por su id
+     *
      * @param id
      * @return
      */
@@ -70,7 +72,64 @@ public class AlimentoController {
     }
 
     /**
+     * Obtiene los alimentos proximos a caducar
+     *
+     * @param pageable
+     * @return
+     */
+    @GetMapping("/proximos-a-caducar")
+    public ResponseEntity<Page<AlimentoDTO>> getAlimentosProximosACaducar(Pageable pageable) {
+        return ResponseEntity.ok(alimentoService.getAlimentosProximosACaducar(pageable));
+    }
+
+    /**
+     * Obtiene los alimentos proximos a caducar por inventario
+     *
+     * @param id
+     * @param pageable
+     * @return
+     */
+    @GetMapping("/proximos-a-caducar/{id}")
+    public ResponseEntity<Page<AlimentoDTO>> getAlimentosProximosACaducarPorInventario(@PathVariable Long id, Pageable pageable) {
+        return ResponseEntity.ok(alimentoService.getAlimentosProximosACaducarByUbicacion(id, pageable));
+    }
+
+    /**
+     * Obtiene los alimentos caducados
+     *
+     * @param pageable
+     * @return
+     */
+    @GetMapping("/caducados")
+    public ResponseEntity<Page<AlimentoDTO>> getAlimentosCaducados(Pageable pageable) {
+        return ResponseEntity.ok(alimentoService.getAlimentosCaducados(pageable));
+    }
+
+    /**
+     * Obtiene los alimentos mas usados
+     *
+     * @param pageable
+     * @return
+     */
+    @GetMapping("/mas-usados")
+    public ResponseEntity<Page<AlimentoDTO>> getAlimentosMasUsados(Pageable pageable) {
+        return ResponseEntity.ok(alimentoService.getAlimentosMasUsados(pageable));
+    }
+
+    /**
+     * Obtiene los alimentos menos usados
+     *
+     * @param pageable
+     * @return
+     */
+    @GetMapping("/menos-usados")
+    public ResponseEntity<Page<AlimentoDTO>> getAlimentosMenosUsados(Pageable pageable) {
+        return ResponseEntity.ok(alimentoService.getAlimentosMenosUsados(pageable));
+    }
+
+    /**
      * Crea un alimento
+     *
      * @param createDTO
      * @return
      */
@@ -81,6 +140,7 @@ public class AlimentoController {
 
     /**
      * Actualiza un alimento
+     *
      * @param id
      * @param updateDTO
      * @return
@@ -94,6 +154,7 @@ public class AlimentoController {
 
     /**
      * Elimina un alimento
+     *
      * @param id
      * @return
      */
