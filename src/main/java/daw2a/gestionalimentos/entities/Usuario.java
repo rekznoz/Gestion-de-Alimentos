@@ -3,6 +3,9 @@ package daw2a.gestionalimentos.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * Entidad Usuario
+ */
 @Entity
 @Table(name = "usuario")
 @Data
