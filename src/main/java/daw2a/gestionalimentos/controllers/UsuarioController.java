@@ -11,6 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controlador de la entidad Usuario
+ */
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
@@ -21,6 +24,12 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+    /**
+     * Obtiene todos los usuarios
+     * @param pageable
+     * @param username
+     * @return
+     */
     @GetMapping
     public ResponseEntity<Page<UsuarioDTO>> getAllUsuario(
             @RequestParam(required = false) String username,
@@ -37,6 +46,11 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Obtiene un usuario por su id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO> getUsuarioById(@PathVariable Long id) {
         try {
@@ -46,6 +60,11 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Crea un usuario
+     * @param usuarioCreateDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<UsuarioDTO> createUsuario(@RequestBody @Valid UsuarioCreateDTO usuarioCreateDTO) {
         try {
@@ -55,6 +74,12 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Actualiza un usuario
+     * @param id
+     * @param usuarioUpdateDTO
+     * @return
+     */
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioDTO> updateUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioUpdateDTO usuarioUpdateDTO) {
        try {
@@ -66,6 +91,11 @@ public class UsuarioController {
        }
     }
 
+    /**
+     * Elimina un usuario
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         try {
