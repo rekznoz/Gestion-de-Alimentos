@@ -9,7 +9,6 @@ import daw2a.gestionalimentos.repositories.UbicacionRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -17,7 +16,6 @@ import java.util.Optional;
  * Servicio de la entidad Ubicacion
  */
 @Service
-@Transactional
 public class UbicacionService {
 
     private final UbicacionRepository ubicacionRepository;
@@ -28,6 +26,7 @@ public class UbicacionService {
 
     /**
      * Obtiene todas las ubicaciones
+     *
      * @param pageable
      * @return
      */
@@ -37,6 +36,7 @@ public class UbicacionService {
 
     /**
      * Obtiene una ubicacion por su id
+     *
      * @param id
      * @return
      */
@@ -46,6 +46,7 @@ public class UbicacionService {
 
     /**
      * Obtiene una ubicacion por su nombre
+     *
      * @param nombreUbicacion
      * @param pageable
      * @return
@@ -56,6 +57,7 @@ public class UbicacionService {
 
     /**
      * Crea una ubicacion
+     *
      * @param ubicacionCreateDTO
      * @return
      */
@@ -69,6 +71,7 @@ public class UbicacionService {
 
     /**
      * Actualiza una ubicacion
+     *
      * @param id
      * @param ubicacionUpdateDTO
      * @return
@@ -84,6 +87,7 @@ public class UbicacionService {
 
     /**
      * Elimina una ubicacion
+     *
      * @param id
      */
     public void deleteUbicacion(Long id) {
@@ -95,6 +99,7 @@ public class UbicacionService {
 
     /**
      * Verifica si una ubicacion tiene capacidad
+     *
      * @param idUbicacion
      * @return
      */
@@ -106,6 +111,7 @@ public class UbicacionService {
 
     /**
      * Convierte una entidad Ubicacion a su DTO
+     *
      * @param ubicacion
      * @return
      */
@@ -117,4 +123,5 @@ public class UbicacionService {
         ubicacionDTO.setEnumUbicacion(ubicacion.getNombreUbicacion());
         return ubicacionDTO;
     }
+
 }
