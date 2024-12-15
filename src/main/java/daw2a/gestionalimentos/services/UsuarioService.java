@@ -22,18 +22,39 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    /**
+     * Obtiene todos los usuarios
+     * @param pageable
+     * @return
+     */
     public Page<UsuarioDTO> getAllUsuario(Pageable pageable) {
         return usuarioRepository.findAll(pageable).map(this::convertToDTO);
     }
 
+    /**
+     * Obtiene un usuario por su id
+     * @param id
+     * @return
+     */
     public UsuarioDTO getUsuarioById(Long id) {
         return usuarioRepository.findById(id).map(this::convertToDTO).orElse(null);
     }
 
+    /**
+     * Filtra los usuarios por username
+     * @param username
+     * @param pageable
+     * @return
+     */
     public Page<UsuarioDTO> getUsuarioByUsername(String username, Pageable pageable) {
         return usuarioRepository.findByUsernameContainingIgnoreCase(username, pageable).map(this::convertToDTO);
     }
 
+    /**
+     * Crea un usuario
+     * @param usuarioCreateDTO
+     * @return
+     */
     public UsuarioDTO createUsuario(UsuarioCreateDTO usuarioCreateDTO) {
         Usuario usuario = new Usuario();
         usuario.setUsername(usuarioCreateDTO.getUsername());
@@ -42,6 +63,12 @@ public class UsuarioService {
         return convertToDTO(usuario);
     }
 
+    /**
+     * Actualiza un usuario
+     * @param id
+     * @param usuarioUpdateDTO
+     * @return
+     */
     public Optional<UsuarioDTO> updateUsuario(Long id, UsuarioUpdateDTO usuarioUpdateDTO) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
         if (usuarioOptional.isPresent()) {
@@ -54,6 +81,11 @@ public class UsuarioService {
         return Optional.empty();
     }
 
+    /**
+     * Elimina un usuario
+     * @param id
+     * @return
+     */
     public boolean deleteUsuario(Long id) {
         return usuarioRepository.findById(id).map(usuario -> {
             usuarioRepository.delete(usuario);
@@ -61,6 +93,11 @@ public class UsuarioService {
         }).orElse(false);
     }
 
+    /**
+     * Convierte un usuario en un DTO
+     * @param usuario
+     * @return
+     */
     private UsuarioDTO convertToDTO(Usuario usuario) {
         UsuarioDTO dto = new UsuarioDTO();
         dto.setId(usuario.getId());
