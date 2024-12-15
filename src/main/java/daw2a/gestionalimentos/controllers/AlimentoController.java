@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
+/**
+ * Controlador de la entidad Alimento
+ */
 @RestController
 @RequestMapping("/alimentos")
 public class AlimentoController {
@@ -22,6 +25,15 @@ public class AlimentoController {
         this.alimentoService = alimentoService;
     }
 
+    /**
+     * Obtiene todos los alimentos
+     * @param pageable
+     * @param nombre
+     * @param abierto
+     * @param perecedero
+     * @param caducidad
+     * @return
+     */
     @GetMapping
     public ResponseEntity<Page<AlimentoDTO>> getAllAlimentos(
             Pageable pageable,
@@ -41,6 +53,11 @@ public class AlimentoController {
         }
     }
 
+    /**
+     * Obtiene un alimento por su id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<AlimentoDTO> getAlimentoById(@PathVariable Long id) {
         try {
@@ -52,11 +69,22 @@ public class AlimentoController {
         }
     }
 
+    /**
+     * Crea un alimento
+     * @param createDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<AlimentoDTO> createAlimento(@RequestBody @Valid AlimentoCreateDTO createDTO) {
         return ResponseEntity.ok(alimentoService.createAlimento(createDTO));
     }
 
+    /**
+     * Actualiza un alimento
+     * @param id
+     * @param updateDTO
+     * @return
+     */
     @PutMapping("/{id}")
     public ResponseEntity<AlimentoDTO> updateAlimento(@PathVariable Long id, @RequestBody @Valid AlimentoUpdateDTO updateDTO) {
         return alimentoService.updateAlimento(id, updateDTO)
@@ -64,6 +92,11 @@ public class AlimentoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Elimina un alimento
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAlimento(@PathVariable Long id) {
         try {
