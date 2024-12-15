@@ -12,7 +12,7 @@ import java.util.List;
  * Repositorio de la entidad Existencia
  */
 @Repository
-public interface ExistenciaRepository extends JpaRepository<Existencia,Long> {
+public interface ExistenciaRepository extends JpaRepository<Existencia, Long> {
 
     // Consulta para buscar existencias por alimento y ubicacion
     Page<Existencia> findByAlimentoIdAndUbicacionId(Long alimento, Long ubicacion_id, Pageable pageable);
