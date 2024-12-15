@@ -1,5 +1,6 @@
 package daw2a.gestionalimentos.entities;
 
+import daw2a.gestionalimentos.enums.Rol;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,5 +24,8 @@ public class Usuario {
 
     @Column(name = "password", nullable = false, length = 255)
     private String password;
+
+    @Column(name = "rol", nullable = false, length = 255)
+    private Rol rol;
 
 }

@@ -5,6 +5,7 @@ import daw2a.gestionalimentos.dto.usuario.UsuarioCreateDTO;
 import daw2a.gestionalimentos.dto.usuario.UsuarioUpdateDTO;
 import daw2a.gestionalimentos.entities.Usuario;
 import daw2a.gestionalimentos.repositories.UsuarioRepository;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -106,5 +107,12 @@ public class UsuarioService {
         dto.setId(usuario.getId());
         dto.setUsername(usuario.getUsername());
         return dto;
+    }
+
+    public Usuario registrarUsuario(@Valid UsuarioCreateDTO crearUsuarioDTO) {
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setUsername(crearUsuarioDTO.getUsername());
+        nuevoUsuario.setPassword(crearUsuarioDTO.getPassword());
+        return usuarioRepository.save(nuevoUsuario);
     }
 }
