@@ -1,10 +1,17 @@
+
 # 🍽️ Gestión de Alimentos
 
-## 🚀 API Gestión Alimentos SpringBoot
+# 🚀 API Gestión Alimentos SpringBoot
 
 ### [📄 Entidades.md](Entidades.md)
 
-## 🔌 Endpoints de la API
+### [⚙️ Archivo de Configuración](src/main/resources/application.properties)
+
+### [🗃️ Sentencias SQL](src/main/resources/data.sql)
+
+### [📤 Exportación de Insomnia](src/main/resources/Insomnia_2024-12-15.json)
+
+# 🔌 Endpoints de la API
 
 ### - [🍏 Alimento](Alimento.md)
 
@@ -12,7 +19,7 @@
 
 ### - [📊 Inventario](Inventario.md)
 
-### - [📍 Ubicacion](Ubicacion.md)
+### - [📍 Ubicación](Ubicacion.md)
 
 ### - [👤 Usuario](Usuario.md)
 
