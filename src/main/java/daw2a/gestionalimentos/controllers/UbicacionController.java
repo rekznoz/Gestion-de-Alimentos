@@ -21,6 +21,12 @@ public class UbicacionController {
         this.ubicacionService = ubicacionService;
     }
 
+    /**
+     * Obtiene todas las ubicaciones
+     * @param pageable
+     * @param nombreUbicacion
+     * @return
+     */
     @GetMapping
     public ResponseEntity<Page<UbicacionDTO>> findAll(
             @RequestParam(required = false) String nombreUbicacion,
@@ -37,6 +43,11 @@ public class UbicacionController {
         }
     }
 
+    /**
+     * Obtiene una ubicacion por su id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<UbicacionDTO> findById(@PathVariable Long id) {
         try {
@@ -48,6 +59,11 @@ public class UbicacionController {
         }
     }
 
+    /**
+     * Crea una ubicacion
+     * @param ubicacionCreateDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<UbicacionDTO> createUbicacion(@RequestBody @Valid UbicacionCreateDTO ubicacionCreateDTO) {
         try {
@@ -57,6 +73,12 @@ public class UbicacionController {
         }
     }
 
+    /**
+     * Actualiza una ubicacion
+     * @param id
+     * @param ubicacionUpdateDTO
+     * @return
+     */
     @PutMapping("/{id}")
     public ResponseEntity<UbicacionDTO> updateUbicacion(@PathVariable Long id, @RequestBody @Valid UbicacionUpdateDTO ubicacionUpdateDTO) {
         try {
@@ -68,6 +90,11 @@ public class UbicacionController {
         }
     }
 
+    /**
+     * Elimina una ubicacion
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUbicacion(@PathVariable Long id) {
         try {
