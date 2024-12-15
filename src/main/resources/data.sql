@@ -11,22 +11,22 @@ INSERT INTO Inventario (usuario_id) VALUES (3);
 INSERT INTO Inventario (usuario_id) VALUES (4);
 
 -- INSERTAR PRODUCTOS
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Leche', '2021-12-12', false, true, 0, 1);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Huevos', '2021-12-12', false, true, 0, 2);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Pan', '2021-12-12', false, true, 0, 3);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Carne', '2021-12-12', false, true, 0, 4);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Pescado', '2021-12-12', false, true, 0, 1);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Fruta', '2021-12-12', false, true, 0, 2);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Verdura', '2021-12-12', false, true, 0, 3);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Queso', '2021-12-12', false, true, 0, 4);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Yogur', '2021-12-12', false, true, 0, 1);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Mantequilla', '2021-12-12', false, true, 0, 2);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Aceite', '2021-12-12', false, true, 0, 3);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Azucar', '2021-12-12', false, true, 0, 4);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Sal', '2021-12-12', false, true, 0, 1);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Pimienta', '2021-12-12', false, true, 0, 2);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Canela', '2021-12-12', false, true, 0, 3);
-INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Vino', '2021-12-12', false, true, 0, 4);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Leche', '2025-12-12', true, true, 2, 1);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Huevos', '2025-12-12', true, true, 4, 2);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Pan', '2024-12-20', false, true, 5, 3);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Carne', '2025-12-12', true, true, 2, 4);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Pescado', '2025-12-12', false, true, 6, 1);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Fruta', '2025-12-12', false, true, 1, 2);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Verdura', '2025-12-12', false, true, 9, 3);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Queso', '2025-12-12', false, true, 3, 4);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Yogur', '2025-12-12', true, true, 8, 1);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Mantequilla', '2025-12-12', false, false, 1, 2);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Aceite', '2024-12-25', true, false, 6, 3);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Azucar', '2025-12-12', false, false, 7, 4);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Sal', '2024-12-25', false, false, 8, 1);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Pimienta', '2025-12-21', false, true, 3, 2);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Canela', '2025-12-12', false, true, 4, 3);
+INSERT INTO Alimento (nombre, fecha_caducidad, abierto, perecedero, numero_usos, inventario_id) VALUES ('Vino', '2021-12-12', false, false, 5, 4);
 
 -- INSERTAR UBICACIONES
 INSERT INTO Ubicacion (descripcion, capacidad, nombre_ubicacion) VALUES ('CONGELADOR 1', 100, 'CONGELADOR');
