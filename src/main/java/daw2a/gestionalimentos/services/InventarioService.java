@@ -11,7 +11,6 @@ import daw2a.gestionalimentos.repositories.UsuarioRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,7 +19,6 @@ import java.util.stream.Collectors;
  * Servicio de la entidad Inventario
  */
 @Service
-@Transactional
 public class InventarioService {
 
     private final InventarioRepository inventarioRepository;
@@ -34,6 +32,7 @@ public class InventarioService {
 
     /**
      * Obtiene todos los inventarios
+     *
      * @param pageable
      * @return
      */
@@ -43,6 +42,7 @@ public class InventarioService {
 
     /**
      * Obtiene un inventario por su id
+     *
      * @param id
      * @return
      */
@@ -52,6 +52,7 @@ public class InventarioService {
 
     /**
      * Obtiene un inventario por el id de un usuario
+     *
      * @param usuarioId
      * @param pageable
      * @return
@@ -62,6 +63,7 @@ public class InventarioService {
 
     /**
      * Crea un inventario
+     *
      * @param createDTO
      * @return
      */
@@ -75,6 +77,7 @@ public class InventarioService {
 
     /**
      * Actualiza un inventario
+     *
      * @param id
      * @param updateDTO
      * @return
@@ -94,6 +97,7 @@ public class InventarioService {
 
     /**
      * Elimina un inventario
+     *
      * @param id
      * @return
      */
@@ -106,6 +110,7 @@ public class InventarioService {
 
     /**
      * Convierte un inventario a DTO
+     *
      * @param inventario
      * @return
      */
