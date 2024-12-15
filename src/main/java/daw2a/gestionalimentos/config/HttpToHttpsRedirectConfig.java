@@ -14,6 +14,7 @@ public class HttpToHttpsRedirectConfig {
 
     /**
      * Redirige las peticiones HTTP a HTTPS
+     *
      * @return Configuración del servidor
      */
     @Bean
@@ -23,6 +24,7 @@ public class HttpToHttpsRedirectConfig {
 
     /**
      * Crea un conector HTTP para redirigir al HTTPS
+     *
      * @return Conector HTTP
      */
     private Connector createHttpConnector() {
