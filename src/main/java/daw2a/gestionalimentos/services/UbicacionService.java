@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * Servicio de la entidad Ubicacion
+ */
 @Service
 @Transactional
 public class UbicacionService {
