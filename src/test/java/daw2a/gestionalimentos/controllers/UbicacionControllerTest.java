@@ -55,7 +55,7 @@ public class UbicacionControllerTest {
         Page<UbicacionDTO> page = new PageImpl<>(List.of(ubicacion));
         when(ubicacionService.findAll(pageable)).thenReturn(page);
 
-        ResponseEntity<Page<UbicacionDTO>> response = ubicacionController.findAll(pageable);
+        ResponseEntity<Page<UbicacionDTO>> response = ubicacionController.findAll(null, pageable);
         Page<UbicacionDTO> result = response.getBody();
 
         assert result != null;

@@ -31,8 +31,8 @@ public class UbicacionService {
         return ubicacionRepository.findById(id).map(this::convertToDTO);
     }
 
-    public Page<UbicacionDTO> getUbicacionesByNombreUbicacion(EnumUbicacion nombreUbicacion, Pageable pageable) {
-        return ubicacionRepository.findByNombreUbicacion(nombreUbicacion, pageable).map(this::convertToDTO);
+    public Page<UbicacionDTO> getUbicacionesByNombreUbicacion(String nombreUbicacion, Pageable pageable) {
+        return ubicacionRepository.findByNombreUbicacion(EnumUbicacion.valueOf(nombreUbicacion.toUpperCase()), pageable).map(this::convertToDTO);
     }
 
     public UbicacionDTO createUbicacion(UbicacionCreateDTO ubicacionCreateDTO) {

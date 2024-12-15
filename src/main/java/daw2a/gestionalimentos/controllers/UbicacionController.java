@@ -22,9 +22,16 @@ public class UbicacionController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<UbicacionDTO>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<UbicacionDTO>> findAll(
+            @RequestParam(required = false) String nombreUbicacion,
+            Pageable pageable
+    ) {
         try {
-            return ResponseEntity.ok(ubicacionService.findAll(pageable));
+            if (nombreUbicacion != null) {
+                return ResponseEntity.ok(ubicacionService.getUbicacionesByNombreUbicacion(nombreUbicacion, pageable));
+            } else {
+                return ResponseEntity.ok(ubicacionService.findAll(pageable));
+            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -36,15 +43,6 @@ public class UbicacionController {
             return ubicacionService.findById(id)
                     .map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/nombre/{nombreUbicacion}")
-    public ResponseEntity<Page<UbicacionDTO>> findByNombreUbicacion(@PathVariable EnumUbicacion nombreUbicacion, Pageable pageable) {
-        try {
-            return ResponseEntity.ok(ubicacionService.getUbicacionesByNombreUbicacion(nombreUbicacion, pageable));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
