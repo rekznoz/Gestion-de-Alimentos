@@ -23,18 +23,39 @@ public class UbicacionService {
         this.ubicacionRepository = ubicacionRepository;
     }
 
+    /**
+     * Obtiene todas las ubicaciones
+     * @param pageable
+     * @return
+     */
     public Page<UbicacionDTO> findAll(Pageable pageable) {
         return ubicacionRepository.findAll(pageable).map(this::convertToDTO);
     }
 
+    /**
+     * Obtiene una ubicacion por su id
+     * @param id
+     * @return
+     */
     public Optional<UbicacionDTO> findById(Long id) {
         return ubicacionRepository.findById(id).map(this::convertToDTO);
     }
 
+    /**
+     * Obtiene una ubicacion por su nombre
+     * @param nombreUbicacion
+     * @param pageable
+     * @return
+     */
     public Page<UbicacionDTO> getUbicacionesByNombreUbicacion(String nombreUbicacion, Pageable pageable) {
         return ubicacionRepository.findByNombreUbicacion(EnumUbicacion.valueOf(nombreUbicacion.toUpperCase()), pageable).map(this::convertToDTO);
     }
 
+    /**
+     * Crea una ubicacion
+     * @param ubicacionCreateDTO
+     * @return
+     */
     public UbicacionDTO createUbicacion(UbicacionCreateDTO ubicacionCreateDTO) {
         Ubicacion ubicacion = new Ubicacion();
         ubicacion.setDescripcion(ubicacionCreateDTO.getDescripcion());
@@ -43,6 +64,12 @@ public class UbicacionService {
         return convertToDTO(ubicacionRepository.save(ubicacion));
     }
 
+    /**
+     * Actualiza una ubicacion
+     * @param id
+     * @param ubicacionUpdateDTO
+     * @return
+     */
     public Optional<UbicacionDTO> updateUbicacion(Long id, UbicacionUpdateDTO ubicacionUpdateDTO) {
         return ubicacionRepository.findById(id).map(ubicacion -> {
             ubicacion.setDescripcion(ubicacionUpdateDTO.getDescripcion());
@@ -52,6 +79,10 @@ public class UbicacionService {
         });
     }
 
+    /**
+     * Elimina una ubicacion
+     * @param id
+     */
     public void deleteUbicacion(Long id) {
         if (!ubicacionRepository.existsById(id)) {
             throw new RuntimeException("Ubicacion no encontrada con id: " + id);
@@ -59,13 +90,22 @@ public class UbicacionService {
         ubicacionRepository.deleteById(id);
     }
 
-    // Verificar si la ubicacion aun tiene capacidad para almacenar alimentos
+    /**
+     * Verifica si una ubicacion tiene capacidad
+     * @param idUbicacion
+     * @return
+     */
     public boolean verificarCapacidadUbicacion(Long idUbicacion) {
         Ubicacion ubicacion = ubicacionRepository.findById(idUbicacion)
                 .orElseThrow(() -> new RuntimeException("Ubicacion no encontrada con id: " + idUbicacion));
         return ubicacion.getCapacidad() > 0;
     }
 
+    /**
+     * Convierte una entidad Ubicacion a su DTO
+     * @param ubicacion
+     * @return
+     */
     private UbicacionDTO convertToDTO(Ubicacion ubicacion) {
         UbicacionDTO ubicacionDTO = new UbicacionDTO();
         ubicacionDTO.setId(ubicacion.getId());
