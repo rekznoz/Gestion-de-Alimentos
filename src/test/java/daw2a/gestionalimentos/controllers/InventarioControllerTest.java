@@ -51,11 +51,29 @@ public class InventarioControllerTest {
         Page<InventarioDTO> page = new PageImpl<>(List.of(inventario));
         when(inventarioService.getAllInventarios(pageable)).thenReturn(page);
 
-        ResponseEntity<Page<InventarioDTO>> response = inventarioController.getAllInventarios(pageable);
+        ResponseEntity<Page<InventarioDTO>> response = inventarioController.getAllInventarios(null, pageable);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(page, response.getBody());
         verify(inventarioService).getAllInventarios(pageable);
+    }
+
+    @Test
+    void listarInventarioPorUsuario() {
+        PageRequest pageable = PageRequest.of(0, 10);
+        InventarioDTO inventarioDTO = new InventarioDTO();
+        inventarioDTO.setId(1L);
+        inventarioDTO.setUsuarioId(1L);
+        inventarioDTO.setAlimentosIds(List.of(1L, 2L, 3L));
+
+        Page<InventarioDTO> page = new PageImpl<>(List.of(inventario));
+        when(inventarioService.getInventarioByUsuarioId(1L, pageable)).thenReturn(page);
+
+        ResponseEntity<Page<InventarioDTO>> response = inventarioController.getAllInventarios(1L, pageable);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(page, response.getBody());
+        verify(inventarioService).getInventarioByUsuarioId(1L, pageable);
     }
 
     @Test
@@ -65,24 +83,6 @@ public class InventarioControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(inventario, response.getBody());
         verify(inventarioService).getInventarioById(1L);
-    }
-
-    @Test
-    void obtenerInventarioPorUsuarioId() {
-        when(inventarioService.getInventarioByUsuarioId(1L)).thenReturn(java.util.Optional.of(inventario));
-        ResponseEntity<InventarioDTO> response = inventarioController.getInventarioByUsuarioId(1L);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(inventario, response.getBody());
-        verify(inventarioService).getInventarioByUsuarioId(1L);
-    }
-
-    @Test
-    void obtenerInventarioPorUsuarioUsername() {
-        when(inventarioService.getInventarioByUsuarioUsername("username")).thenReturn(java.util.Optional.of(inventario));
-        ResponseEntity<InventarioDTO> response = inventarioController.getInventarioByUsuarioUsername("username");
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(inventario, response.getBody());
-        verify(inventarioService).getInventarioByUsuarioUsername("username");
     }
 
     @Test

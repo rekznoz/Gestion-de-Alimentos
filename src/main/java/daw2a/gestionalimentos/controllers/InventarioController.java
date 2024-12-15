@@ -1,7 +1,10 @@
 package daw2a.gestionalimentos.controllers;
 
+import daw2a.gestionalimentos.dto.alimento.AlimentoDTO;
+import daw2a.gestionalimentos.dto.alimento.AlimentoUpdateDTO;
 import daw2a.gestionalimentos.dto.inventario.InventarioDTO;
 import daw2a.gestionalimentos.dto.inventario.InventarioCreateDTO;
+import daw2a.gestionalimentos.dto.inventario.InventarioUpdateDTO;
 import daw2a.gestionalimentos.services.InventarioService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -20,9 +23,16 @@ public class InventarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<InventarioDTO>> getAllInventarios(Pageable pageable) {
+    public ResponseEntity<Page<InventarioDTO>> getAllInventarios(
+            @RequestParam(required = false) Long usuarioId,
+            Pageable pageable
+    ) {
         try {
-            return ResponseEntity.ok(inventarioService.getAllInventarios(pageable));
+            if (usuarioId != null) {
+                return ResponseEntity.ok(inventarioService.getInventarioByUsuarioId(usuarioId, pageable));
+            } else {
+                return ResponseEntity.ok(inventarioService.getAllInventarios(pageable));
+            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -39,34 +49,21 @@ public class InventarioController {
         }
     }
 
-    @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<InventarioDTO> getInventarioByUsuarioId(@PathVariable Long usuarioId) {
-        try {
-            return inventarioService.getInventarioByUsuarioId(usuarioId)
-                    .map(ResponseEntity::ok)
-                    .orElse(ResponseEntity.notFound().build());
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/usuario/{username}")
-    public ResponseEntity<InventarioDTO> getInventarioByUsuarioUsername(@PathVariable String username) {
-        try {
-            return inventarioService.getInventarioByUsuarioUsername(username)
-                    .map(ResponseEntity::ok)
-                    .orElse(ResponseEntity.notFound().build());
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @PostMapping
     public ResponseEntity<InventarioDTO> createInventario(@RequestBody @Valid InventarioCreateDTO createDTO) {
         try {
             return ResponseEntity.ok(inventarioService.createInventario(createDTO));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<InventarioDTO> updateAlimento(@PathVariable Long id, @RequestBody @Valid InventarioUpdateDTO updateDTO) {
+        try {
+            return ResponseEntity.ok(inventarioService.updateInventario(id, updateDTO));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
         }
     }
 
