@@ -31,18 +31,39 @@ public class InventarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    /**
+     * Obtiene todos los inventarios
+     * @param pageable
+     * @return
+     */
     public Page<InventarioDTO> getAllInventarios(Pageable pageable) {
         return inventarioRepository.findAll(pageable).map(this::convertToDTO);
     }
 
+    /**
+     * Obtiene un inventario por su id
+     * @param id
+     * @return
+     */
     public Optional<InventarioDTO> getInventarioById(Long id) {
         return inventarioRepository.findById(id).map(this::convertToDTO);
     }
 
+    /**
+     * Obtiene un inventario por el id de un usuario
+     * @param usuarioId
+     * @param pageable
+     * @return
+     */
     public Page<InventarioDTO> getInventarioByUsuarioId(Long usuarioId, Pageable pageable) {
         return inventarioRepository.findByUsuarioId(usuarioId, pageable).map(this::convertToDTO);
     }
 
+    /**
+     * Crea un inventario
+     * @param createDTO
+     * @return
+     */
     public InventarioDTO createInventario(InventarioCreateDTO createDTO) {
         Usuario usuario = usuarioRepository.findById(createDTO.getUsuarioId()).orElseThrow();
         Inventario inventario = new Inventario();
@@ -51,6 +72,12 @@ public class InventarioService {
         return convertToDTO(inventario);
     }
 
+    /**
+     * Actualiza un inventario
+     * @param id
+     * @param updateDTO
+     * @return
+     */
     public InventarioDTO updateInventario(Long id, InventarioUpdateDTO updateDTO) {
         Inventario inventario = inventarioRepository.findById(id).orElseThrow();
         Usuario usuario = usuarioRepository.findById(updateDTO.getUsuarioId()).orElseThrow();
@@ -64,6 +91,11 @@ public class InventarioService {
         return convertToDTO(inventario);
     }
 
+    /**
+     * Elimina un inventario
+     * @param id
+     * @return
+     */
     public boolean deleteInventario(Long id) {
         return inventarioRepository.findById(id).map(inventario -> {
             inventarioRepository.delete(inventario);
@@ -71,6 +103,11 @@ public class InventarioService {
         }).orElse(false);
     }
 
+    /**
+     * Convierte un inventario a DTO
+     * @param inventario
+     * @return
+     */
     private InventarioDTO convertToDTO(Inventario inventario) {
         InventarioDTO inventarioDTO = new InventarioDTO();
         inventarioDTO.setId(inventario.getId());
