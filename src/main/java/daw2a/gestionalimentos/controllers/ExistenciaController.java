@@ -26,6 +26,7 @@ public class ExistenciaController {
 
     /**
      * Obtiene todas las existencias
+     *
      * @param pageable
      * @param alimento
      * @param ubicacion
@@ -40,7 +41,7 @@ public class ExistenciaController {
         try {
             if (alimento != null || ubicacion != null) {
                 return ResponseEntity.ok(existenciaService.filterExistencias(alimento, ubicacion, pageable));
-            }else {
+            } else {
                 return ResponseEntity.ok(existenciaService.getAllExistencias(pageable));
             }
         } catch (Exception e) {
@@ -50,6 +51,7 @@ public class ExistenciaController {
 
     /**
      * Obtiene una existencia por su id
+     *
      * @param id
      * @return
      */
@@ -66,6 +68,7 @@ public class ExistenciaController {
 
     /**
      * Crea una existencia
+     *
      * @param createDTO
      * @return
      */
@@ -80,6 +83,7 @@ public class ExistenciaController {
 
     /**
      * Actualiza una existencia
+     *
      * @param id
      * @param updateDTO
      * @return
@@ -97,6 +101,7 @@ public class ExistenciaController {
 
     /**
      * Elimina una existencia
+     *
      * @param id
      * @return
      */
@@ -112,6 +117,7 @@ public class ExistenciaController {
 
     /**
      * Obtiene todas las existencias ordenadas por fecha de entrada
+     *
      * @param pageable
      * @return
      */
