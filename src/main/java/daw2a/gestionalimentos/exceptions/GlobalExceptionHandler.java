@@ -19,6 +19,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Manejador para errores de validación.
+     *
      * @param ex Excepción de validación
      * @return Mapa con los errores de validación
      */
@@ -37,6 +38,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Manejador para errores de recurso no encontrado.
+     *
      * @param ex Excepción de recurso no encontrado
      * @return Mensaje de error
      */
@@ -47,6 +49,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Manejador para errores de recurso duplicado.
+     *
      * @param ex Excepción de recurso duplicado
      * @return Mensaje de error
      */
@@ -57,6 +60,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Manejador para errores de violación de integridad de datos.
+     *
      * @param ex Excepción de violación de integridad de datos
      * @return Mensaje de error
      */
