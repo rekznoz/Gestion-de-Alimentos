@@ -15,6 +15,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio de la entidad Alimento
+ */
 @Service
 @Transactional
 public class AlimentoService {
@@ -28,14 +31,33 @@ public class AlimentoService {
         this.inventarioRepository = inventarioUsuarioRepository;
     }
 
+    /**
+     * Obtiene todos los alimentos
+     * @param pageable
+     * @return
+     */
     public Page<AlimentoDTO> getAllAlimentos(Pageable pageable) {
         return alimentoRepository.findAll(pageable).map(this::convertToDTO);
     }
 
+    /**
+     * Obtiene un alimento por su id
+     * @param id
+     * @return
+     */
     public Optional<AlimentoDTO> getAlimentoById(Long id) {
         return alimentoRepository.findById(id).map(this::convertToDTO);
     }
 
+    /**
+     * Filtra los alimentos por nombre, abierto, perecedero y caducidad
+     * @param nombre
+     * @param abierto
+     * @param perecedero
+     * @param caducidad
+     * @param pageable
+     * @return
+     */
     public Page<AlimentoDTO> filtrarAlimentos(
             String nombre,
             Boolean abierto,
@@ -57,6 +79,11 @@ public class AlimentoService {
         return alimentos.map(this::convertToDTO);
     }
 
+    /**
+     * Crea un alimento
+     * @param createDTO
+     * @return
+     */
     public AlimentoDTO createAlimento(AlimentoCreateDTO createDTO) {
         Alimento alimento = new Alimento();
 
@@ -74,6 +101,12 @@ public class AlimentoService {
         return convertToDTO(alimento);
     }
 
+    /**
+     * Actualiza un alimento
+     * @param id
+     * @param updateDTO
+     * @return
+     */
     public Optional<AlimentoDTO> updateAlimento(Long id, AlimentoUpdateDTO updateDTO) {
         return alimentoRepository.findById(id).map(alimento -> {
             alimento.setNombre(updateDTO.getNombre());
@@ -86,6 +119,10 @@ public class AlimentoService {
         });
     }
 
+    /**
+     * Elimina un alimento
+     * @param id
+     */
     public void deleteAlimento(Long id) {
         if (!alimentoRepository.existsById(id)) {
             throw new RuntimeException("Alimento no encontrado con id " + id);
@@ -93,6 +130,11 @@ public class AlimentoService {
         alimentoRepository.deleteById(id);
     }
 
+    /**
+     * Convierte un Alimento a AlimentoDTO
+     * @param alimento
+     * @return
+     */
     private AlimentoDTO convertToDTO(Alimento alimento) {
         AlimentoDTO alimentoDTO = new AlimentoDTO();
         alimentoDTO.setId(alimento.getId());
@@ -106,7 +148,11 @@ public class AlimentoService {
 
     // Logica de negocio
 
-    // Mover Alimentos al congelador
+    /**
+     * Mueve un alimento a la nevera
+     * @param id
+     * @return
+     */
     public boolean moverAlimentoToCongelador(Long id) {
         return alimentoRepository.findById(id).map(alimento -> {
             alimento.setInventario(inventarioRepository.findById(1L).orElseThrow());
@@ -115,7 +161,11 @@ public class AlimentoService {
         }).orElse(false);
     }
 
-    // Rotacion de Productos
+    /**
+     * Mueve un alimento al congelador
+     * @param id
+     * @return
+     */
     public void rotarProductos() {
         List<Alimento> alimentos = alimentoRepository.findAll();
         alimentos.forEach(alimento -> {
@@ -127,17 +177,30 @@ public class AlimentoService {
         });
     }
 
-    // Alertar de productos proximos a caducar
+    /**
+     * Obtiene los alimentos proximos a caducar
+     * @param fecha
+     * @param pageable
+     * @return
+     */
     public Page<AlimentoDTO> getAlimentosProximosCaducar(LocalDate fecha, Pageable pageable) {
         return alimentoRepository.findAlimentoByFechaCaducidadBefore(fecha, pageable).map(this::convertToDTO);
     }
 
-    // Alertar de productos caducados
+    /**
+     * Obtiene los alimentos caducados
+     * @param pageable
+     * @return
+     */
     public Page<AlimentoDTO> getAlimentosCaducados(Pageable pageable) {
         return alimentoRepository.findAlimentoByFechaCaducidadBefore(LocalDate.now(), pageable).map(this::convertToDTO);
     }
 
-    // Sumar un uso a un alimento
+    /**
+     * Suma un uso a un alimento
+     * @param id
+     * @return
+     */
     public boolean sumarUso(Long id) {
         return alimentoRepository.findById(id).map(alimento -> {
             alimento.setNumeroUsos(alimento.getNumeroUsos() + 1);
@@ -146,17 +209,32 @@ public class AlimentoService {
         }).orElse(false);
     }
 
-    // Obtener Alimentos mas usados
+    /**
+     * Resta un uso a un alimento
+     * @param numeroUsos
+     * @return
+     */
     public Page<AlimentoDTO> getAlimentosMasUsados(int numeroUsos, Pageable pageable) {
         return alimentoRepository.findAlimentoByNumeroUsosGreaterThanEqual(numeroUsos, pageable).map(this::convertToDTO);
     }
 
-    // Obtener Alimentos menos usados
+    /**
+     * Obtiene los alimentos menos usados
+     * @param numeroUsos
+     * @param pageable
+     * @return
+     */
     public Page<AlimentoDTO> getAlimentosMenosUsados(int numeroUsos, Pageable pageable) {
         return alimentoRepository.findAlimentoByNumeroUsosLessThanEqual(numeroUsos, pageable).map(this::convertToDTO);
     }
 
-    // Obtener Alimentos por rango de usos
+    /**
+     * Obtiene los alimentos por rango de usos
+     * @param numeroUsos1
+     * @param numeroUsos2
+     * @param pageable
+     * @return
+     */
     public Page<AlimentoDTO> getAlimentosPorRangoUsos(int numeroUsos1, int numeroUsos2, Pageable pageable) {
         return alimentoRepository.findAlimentoByNumeroUsosBetween(numeroUsos1, numeroUsos2, pageable).map(this::convertToDTO);
     }
