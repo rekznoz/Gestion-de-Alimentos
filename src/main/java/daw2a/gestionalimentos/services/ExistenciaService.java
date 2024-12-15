@@ -10,7 +10,6 @@ import daw2a.gestionalimentos.repositories.UbicacionRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -19,7 +18,6 @@ import java.util.Optional;
  * Servicio de la entidad Existencia
  */
 @Service
-@Transactional
 public class ExistenciaService {
 
     private final ExistenciaRepository existenciaRepository;
@@ -36,6 +34,7 @@ public class ExistenciaService {
 
     /**
      * Obtiene todas las existencias
+     *
      * @param pageable
      * @return
      */
@@ -45,6 +44,7 @@ public class ExistenciaService {
 
     /**
      * Obtiene una existencia por su id
+     *
      * @param id
      * @return
      */
@@ -54,6 +54,7 @@ public class ExistenciaService {
 
     /**
      * Filtra las existencias por alimento y ubicacion
+     *
      * @param alimento
      * @param ubicacion
      * @param pageable
@@ -76,6 +77,7 @@ public class ExistenciaService {
 
     /**
      * Obtiene todas las existencias ordenadas por fecha de entrada
+     *
      * @param pageable
      * @return
      */
@@ -85,6 +87,7 @@ public class ExistenciaService {
 
     /**
      * Crea una existencia
+     *
      * @param createDTO
      * @return
      */
@@ -99,6 +102,7 @@ public class ExistenciaService {
 
     /**
      * Actualiza una existencia
+     *
      * @param id
      * @param updateDTO
      * @return
@@ -115,6 +119,7 @@ public class ExistenciaService {
 
     /**
      * Elimina una existencia
+     *
      * @param id
      */
     public void deleteExistencias(Long id) {
@@ -126,6 +131,7 @@ public class ExistenciaService {
 
     /**
      * Convierte una entidad Existencia a su DTO
+     *
      * @param existencias
      * @return
      */
