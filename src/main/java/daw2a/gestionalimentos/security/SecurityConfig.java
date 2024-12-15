@@ -16,26 +16,49 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Clase de configuración de seguridad
+ */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final JwtRequestFilter jwtRequestFilter;
 
+    /**
+     * Constructor
+     * @param jwtRequestFilter Filtro de peticiones JWT
+     */
     public SecurityConfig(JwtRequestFilter jwtRequestFilter) {
         this.jwtRequestFilter = jwtRequestFilter;
     }
 
+    /**
+     * Codificador de contraseñas
+     * @return Codificador de contraseñas
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Configuración de autenticación
+     * @param authConfig Configuración de autenticación
+     * @return Gestor de autenticación
+     * @throws Exception Excepción de configuración
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
+    /**
+     * Configuración de seguridad
+     * @param http Objeto de configuración de seguridad
+     * @return Filtro de seguridad
+     * @throws Exception Excepción de configuración
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
