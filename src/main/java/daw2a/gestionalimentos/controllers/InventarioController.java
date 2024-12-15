@@ -22,6 +22,12 @@ public class InventarioController {
         this.inventarioService = inventarioService;
     }
 
+    /**
+     * Obtiene todos los inventarios
+     * @param pageable
+     * @param usuarioId
+     * @return
+     */
     @GetMapping
     public ResponseEntity<Page<InventarioDTO>> getAllInventarios(
             @RequestParam(required = false) Long usuarioId,
@@ -38,6 +44,11 @@ public class InventarioController {
         }
     }
 
+    /**
+     * Obtiene un inventario por su id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<InventarioDTO> getInventarioById(@PathVariable Long id) {
         try {
@@ -49,6 +60,11 @@ public class InventarioController {
         }
     }
 
+    /**
+     * Crea un inventario
+     * @param createDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<InventarioDTO> createInventario(@RequestBody @Valid InventarioCreateDTO createDTO) {
         try {
@@ -58,6 +74,12 @@ public class InventarioController {
         }
     }
 
+    /**
+     * Actualiza un inventario
+     * @param id
+     * @param updateDTO
+     * @return
+     */
     @PutMapping("/{id}")
     public ResponseEntity<InventarioDTO> updateAlimento(@PathVariable Long id, @RequestBody @Valid InventarioUpdateDTO updateDTO) {
         try {
@@ -67,6 +89,11 @@ public class InventarioController {
         }
     }
 
+    /**
+     * Elimina un inventario
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInventario(@PathVariable Long id) {
         try {
