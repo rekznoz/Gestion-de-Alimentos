@@ -26,6 +26,7 @@ public class UsuarioController {
 
     /**
      * Obtiene todos los usuarios
+     *
      * @param pageable
      * @param username
      * @return
@@ -48,6 +49,7 @@ public class UsuarioController {
 
     /**
      * Obtiene un usuario por su id
+     *
      * @param id
      * @return
      */
@@ -62,6 +64,7 @@ public class UsuarioController {
 
     /**
      * Crea un usuario
+     *
      * @param usuarioCreateDTO
      * @return
      */
@@ -76,23 +79,25 @@ public class UsuarioController {
 
     /**
      * Actualiza un usuario
+     *
      * @param id
      * @param usuarioUpdateDTO
      * @return
      */
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioDTO> updateUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioUpdateDTO usuarioUpdateDTO) {
-       try {
-           return usuarioService.updateUsuario(id, usuarioUpdateDTO)
-                   .map(ResponseEntity::ok)
-                   .orElse(ResponseEntity.notFound().build());
-       } catch (Exception e) {
-           return ResponseEntity.notFound().build();
-       }
+        try {
+            return usuarioService.updateUsuario(id, usuarioUpdateDTO)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /**
      * Elimina un usuario
+     *
      * @param id
      * @return
      */
