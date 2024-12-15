@@ -23,9 +23,17 @@ public class ExistenciaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ExistenciaDTO>> getAllExistencias(Pageable pageable) {
+    public ResponseEntity<Page<ExistenciaDTO>> getAllExistencias(
+            @RequestParam(required = false) Long alimento,
+            @RequestParam(required = false) Long ubicacion,
+            Pageable pageable
+    ) {
         try {
-            return ResponseEntity.ok(existenciaService.getAllExistencias(pageable));
+            if (alimento != null || ubicacion != null) {
+                return ResponseEntity.ok(existenciaService.filterExistencias(alimento, ubicacion, pageable));
+            }else {
+                return ResponseEntity.ok(existenciaService.getAllExistencias(pageable));
+            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
@@ -72,41 +80,6 @@ public class ExistenciaController {
         }
     }
 
-    @GetMapping("/alimento/{alimento_id}")
-    public ResponseEntity<List<ExistenciaDTO>> getExistenciasByAlimentoId(@PathVariable Long alimento_id) {
-        try {
-            return ResponseEntity.ok(existenciaService.getExistenciasByAlimentoId(alimento_id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @GetMapping("/ubicacion/{ubicacion_id}")
-    public ResponseEntity<List<ExistenciaDTO>> getExistenciasByUbicacionId(@PathVariable Long ubicacion_id) {
-        try {
-            return ResponseEntity.ok(existenciaService.getExistenciasByUbicacionId(ubicacion_id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @GetMapping("/alimento/{alimento_id}/ubicacion/{ubicacion_id}")
-    public ResponseEntity<List<ExistenciaDTO>> getExistenciasByAlimentoIdAndUbicacionId(@PathVariable Long alimento_id, @PathVariable Long ubicacion_id) {
-        try {
-            return ResponseEntity.ok(existenciaService.getExistenciasByAlimentoIdAndUbicacionId(alimento_id, ubicacion_id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-    @GetMapping("/alimento/{alimento_id}/ubicacion/{ubicacion_id}/fecha")
-    public ResponseEntity<List<ExistenciaDTO>> getExistenciasByAlimentoIdAndUbicacionIdOrderByFechaEntradaAsc(@PathVariable Long alimento_id, @PathVariable Long ubicacion_id) {
-        try {
-            return ResponseEntity.ok(existenciaService.getExistenciasByAlimentoIdAndUbicacionIdOrderByFechaEntradaAsc(alimento_id, ubicacion_id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
 
     @GetMapping("/fecha")
     public ResponseEntity<Page<ExistenciaDTO>> findAllByOrderByFechaEntradaAsc(Pageable pageable) {

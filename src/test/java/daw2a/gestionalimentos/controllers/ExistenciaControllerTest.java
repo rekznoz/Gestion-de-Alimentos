@@ -56,7 +56,7 @@ public class ExistenciaControllerTest {
         Page<ExistenciaDTO> page = new PageImpl<>(List.of(existencia));
         when(existenciaService.getAllExistencias(pageable)).thenReturn(page);
 
-        ResponseEntity<Page<ExistenciaDTO>> response = existenciaController.getAllExistencias(pageable);
+        ResponseEntity<Page<ExistenciaDTO>> response = existenciaController.getAllExistencias(null, null, pageable);
         Page<ExistenciaDTO> result = response.getBody();
 
         assert result != null;

@@ -41,24 +41,23 @@ public class ExistenciaService {
         return existenciaRepository.findById(id).map(this::convertToDTO);
     }
 
-    public List<ExistenciaDTO> getExistenciasByAlimentoId(Long alimentoId) {
-        return existenciaRepository.findByAlimentoId(alimentoId).stream().map(this::convertToDTO).collect(Collectors.toList());
+    public Page<ExistenciaDTO> filterExistencias(Long alimento, Long ubicacion, Pageable pageable) {
+        Page<Existencia> existencias;
+        if (alimento != null && ubicacion != null) {
+            existencias = existenciaRepository.findByAlimentoIdAndUbicacionId(alimento, ubicacion, pageable);
+        } else if (alimento != null) {
+            existencias = existenciaRepository.findByAlimentoId(alimento, pageable);
+        } else if (ubicacion != null) {
+            existencias = existenciaRepository.findByUbicacionId(ubicacion, pageable);
+        } else {
+            existencias = existenciaRepository.findAll(pageable);
+        }
+        System.out.println("Ubicacion: " + ubicacion);
+        return existencias.map(this::convertToDTO);
     }
 
     public Page<ExistenciaDTO> findAllByOrderByFechaEntradaAsc(Pageable pageable) {
         return existenciaRepository.findAllByOrderByFechaEntradaAsc(pageable).map(this::convertToDTO);
-    }
-
-    public List<ExistenciaDTO> getExistenciasByUbicacionId(Long ubicacionId) {
-        return existenciaRepository.findByUbicacionId(ubicacionId).stream().map(this::convertToDTO).collect(Collectors.toList());
-    }
-
-    public List<ExistenciaDTO> getExistenciasByAlimentoIdAndUbicacionId(Long alimentoId, Long ubicacionId) {
-        return existenciaRepository.findByAlimentoIdAndUbicacionId(alimentoId, ubicacionId).stream().map(this::convertToDTO).collect(Collectors.toList());
-    }
-
-    public List<ExistenciaDTO> getExistenciasByAlimentoIdAndUbicacionIdOrderByFechaEntradaAsc(Long alimentoId, Long ubicacionId) {
-        return existenciaRepository.findByAlimentoIdAndUbicacionIdOrderByFechaEntradaAsc(alimentoId, ubicacionId).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     public ExistenciaDTO createExistencias(ExistenciaCreateDTO createDTO) {
@@ -96,4 +95,5 @@ public class ExistenciaService {
         existenciasDTO.setUbicacionId(existencias.getUbicacion().getId());
         return existenciasDTO;
     }
+
 }
