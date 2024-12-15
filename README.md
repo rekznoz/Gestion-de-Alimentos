@@ -3,7 +3,7 @@
 
 # 🚀 API Gestión Alimentos SpringBoot
 
-### [📄 Entidades.md](Entidades.md)
+### [📄 Entidades](Entidades.md)
 
 ### [⚙️ Archivo de Configuración](src/main/resources/application.properties)
 
