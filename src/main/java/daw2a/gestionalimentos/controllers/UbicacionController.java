@@ -23,6 +23,7 @@ public class UbicacionController {
 
     /**
      * Obtiene todas las ubicaciones
+     *
      * @param pageable
      * @param nombreUbicacion
      * @return
@@ -45,6 +46,7 @@ public class UbicacionController {
 
     /**
      * Obtiene una ubicacion por su id
+     *
      * @param id
      * @return
      */
@@ -61,6 +63,7 @@ public class UbicacionController {
 
     /**
      * Crea una ubicacion
+     *
      * @param ubicacionCreateDTO
      * @return
      */
@@ -75,6 +78,7 @@ public class UbicacionController {
 
     /**
      * Actualiza una ubicacion
+     *
      * @param id
      * @param ubicacionUpdateDTO
      * @return
@@ -92,6 +96,7 @@ public class UbicacionController {
 
     /**
      * Elimina una ubicacion
+     *
      * @param id
      * @return
      */
