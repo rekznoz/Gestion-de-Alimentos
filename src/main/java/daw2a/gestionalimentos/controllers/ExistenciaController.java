@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
-import java.util.List;
 
+/**
+ * Controlador de la entidad Existencia
+ */
 @RestController
 @RequestMapping("/existencias")
 public class ExistenciaController {
@@ -22,6 +24,13 @@ public class ExistenciaController {
         this.existenciaService = existenciaService;
     }
 
+    /**
+     * Obtiene todas las existencias
+     * @param pageable
+     * @param alimento
+     * @param ubicacion
+     * @return
+     */
     @GetMapping
     public ResponseEntity<Page<ExistenciaDTO>> getAllExistencias(
             @RequestParam(required = false) Long alimento,
@@ -39,6 +48,11 @@ public class ExistenciaController {
         }
     }
 
+    /**
+     * Obtiene una existencia por su id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ExistenciaDTO> getExistenciasById(@PathVariable Long id) {
         try {
@@ -50,6 +64,11 @@ public class ExistenciaController {
         }
     }
 
+    /**
+     * Crea una existencia
+     * @param createDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<ExistenciaDTO> createExistencias(@RequestBody @Valid ExistenciaCreateDTO createDTO) {
         try {
@@ -59,6 +78,12 @@ public class ExistenciaController {
         }
     }
 
+    /**
+     * Actualiza una existencia
+     * @param id
+     * @param updateDTO
+     * @return
+     */
     @PutMapping("/{id}")
     public ResponseEntity<ExistenciaDTO> updateExistencias(@PathVariable Long id, @RequestBody @Valid ExistenciaUpdateDTO updateDTO) {
         try {
@@ -70,6 +95,11 @@ public class ExistenciaController {
         }
     }
 
+    /**
+     * Elimina una existencia
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteExistencias(@PathVariable Long id) {
         try {
@@ -80,7 +110,11 @@ public class ExistenciaController {
         }
     }
 
-
+    /**
+     * Obtiene todas las existencias ordenadas por fecha de entrada
+     * @param pageable
+     * @return
+     */
     @GetMapping("/fecha")
     public ResponseEntity<Page<ExistenciaDTO>> findAllByOrderByFechaEntradaAsc(Pageable pageable) {
         try {
