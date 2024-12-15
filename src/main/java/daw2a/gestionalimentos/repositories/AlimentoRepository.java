@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
+/**
+ * Repositorio de la entidad Alimento
+ */
 @Repository
 public interface AlimentoRepository  extends JpaRepository<Alimento,Long> {
 
