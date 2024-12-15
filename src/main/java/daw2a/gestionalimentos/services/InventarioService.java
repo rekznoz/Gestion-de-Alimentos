@@ -1,6 +1,5 @@
 package daw2a.gestionalimentos.services;
 
-import daw2a.gestionalimentos.dto.alimento.AlimentoDTO;
 import daw2a.gestionalimentos.dto.inventario.InventarioDTO;
 import daw2a.gestionalimentos.dto.inventario.InventarioCreateDTO;
 import daw2a.gestionalimentos.dto.inventario.InventarioUpdateDTO;
@@ -9,7 +8,6 @@ import daw2a.gestionalimentos.entities.Inventario;
 import daw2a.gestionalimentos.entities.Usuario;
 import daw2a.gestionalimentos.repositories.InventarioRepository;
 import daw2a.gestionalimentos.repositories.UsuarioRepository;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Servicio de la entidad Inventario
+ */
 @Service
 @Transactional
 public class InventarioService {
