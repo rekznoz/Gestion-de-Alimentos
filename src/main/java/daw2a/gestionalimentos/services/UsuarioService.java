@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * Servicio de la entidad Usuario
+ */
 @Service
 @Transactional
 public class UsuarioService {
