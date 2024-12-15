@@ -7,6 +7,9 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Entidad Alimento
+ */
 @Entity
 @Table(name = "alimento")
 @Data
